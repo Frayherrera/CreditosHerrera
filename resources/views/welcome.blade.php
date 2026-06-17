@@ -11,11 +11,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <link rel="manifest" href="/manifest.json">
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
     <link rel="apple-touch-icon" sizes="16x16" href="/pwa/icons/ios/16.png">
     <link rel="apple-touch-icon" sizes="20x20" href="/pwa/icons/ios/20.png">
     <link rel="apple-touch-icon" sizes="29x29" href="/pwa/icons/ios/29.png">
@@ -42,7 +39,6 @@
     <link rel="apple-touch-icon" sizes="256x256" href="/pwa/icons/ios/256.png">
     <link rel="apple-touch-icon" sizes="512x512" href="/pwa/icons/ios/512.png">
     <link rel="apple-touch-icon" sizes="1024x1024" href="/pwa/icons/ios/1024.png">
-
     <link href="/pwa/icons/ios/1024.png" sizes="1024x1024" rel="apple-touch-startup-image">
     <link href="/pwa/icons/ios/512.png" sizes="512x512" rel="apple-touch-startup-image">
     <link href="/pwa/icons/ios/256.png" sizes="256x256" rel="apple-touch-startup-image">
@@ -189,25 +185,6 @@
                     ];
                 @endphp
 
-                @foreach($servicios as $index => $servicio)
-                    <div class="group cursor-pointer hover-scale animate-fade-in-up-delay-{{ $index }}"
-                        style="animation-delay: {{ $index * 0.1 }}s">
-                        <div
-                            class="bg-white p-6 rounded-xl border-2 border-blue-200 hover:border-red-500 hover:shadow-lg transition-all">
-                            <div
-                                class="{{ $servicio['color'] }} w-14 h-14 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <i class="fas {{ $servicio['icon'] }} w-7 h-7 {{ $servicio['iconColor'] }} text-2xl"></i>
-                            </div>
-                            <h3 class="font-semibold text-blue-900 mb-2">{{ $servicio['titulo'] }}</h3>
-                            <p class="text-sm text-blue-700 mb-4">{{ $servicio['descripcion'] }}</p>
-                            <div class="flex items-center text-red-600 text-sm font-medium">
-                                Acceder
-                                <i
-                                    class="fas fa-chevron-right w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></i>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
             </div>
         </div>
     </section>
@@ -234,17 +211,7 @@
                             ];
                         @endphp
 
-                        @foreach($tramites as $index => $tramite)
-                            <div class="bg-white p-4 rounded-lg border-2 border-blue-200 hover:border-red-500 hover:shadow-md transition-all cursor-pointer flex items-center justify-between group"
-                                style="animation: fadeInUp 0.4s ease-out {{ $index * 0.05 }}s forwards; opacity: 0;">
-                                <div class="flex items-center gap-3">
-                                    <i class="fas fa-file-alt text-blue-700"></i>
-                                    <span class="font-medium text-blue-900">{{ $tramite }}</span>
-                                </div>
-                                <i
-                                    class="fas fa-chevron-right text-red-500 group-hover:translate-x-1 transition-transform"></i>
-                            </div>
-                        @endforeach
+
                     </div>
                 </div>
 
