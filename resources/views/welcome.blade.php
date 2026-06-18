@@ -1,340 +1,555 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Alcaldía Municipal de Río Viejo, Bolívar - Ventanilla Única Digital</title>
-    <meta name="theme-color" content="#4A90E2">
+    <title>CreditosHerrera — Artículos para tu hogar a crédito</title>
+    <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="apple-touch-icon" sizes="16x16" href="/pwa/icons/ios/16.png">
-    <link rel="apple-touch-icon" sizes="20x20" href="/pwa/icons/ios/20.png">
-    <link rel="apple-touch-icon" sizes="29x29" href="/pwa/icons/ios/29.png">
-    <link rel="apple-touch-icon" sizes="32x32" href="/pwa/icons/ios/32.png">
-    <link rel="apple-touch-icon" sizes="40x40" href="/pwa/icons/ios/40.png">
-    <link rel="apple-touch-icon" sizes="50x50" href="/pwa/icons/ios/50.png">
-    <link rel="apple-touch-icon" sizes="57x57" href="/pwa/icons/ios/57.png">
-    <link rel="apple-touch-icon" sizes="58x58" href="/pwa/icons/ios/58.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/pwa/icons/ios/60.png">
-    <link rel="apple-touch-icon" sizes="64x64" href="/pwa/icons/ios/64.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/pwa/icons/ios/72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/pwa/icons/ios/76.png">
-    <link rel="apple-touch-icon" sizes="80x80" href="/pwa/icons/ios/80.png">
-    <link rel="apple-touch-icon" sizes="87x87" href="/pwa/icons/ios/87.png">
-    <link rel="apple-touch-icon" sizes="100x100" href="/pwa/icons/ios/100.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/pwa/icons/ios/114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/pwa/icons/ios/120.png">
-    <link rel="apple-touch-icon" sizes="128x128" href="/pwa/icons/ios/128.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/pwa/icons/ios/144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/pwa/icons/ios/152.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="/pwa/icons/ios/167.png">
+    <link href="https://fonts.bunny.net/css?family=dm-serif-display:400,400i|inter:400,500,600,700&display=swap" rel="stylesheet" />
     <link rel="apple-touch-icon" sizes="180x180" href="/pwa/icons/ios/180.png">
     <link rel="apple-touch-icon" sizes="192x192" href="/pwa/icons/ios/192.png">
-    <link rel="apple-touch-icon" sizes="256x256" href="/pwa/icons/ios/256.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="/pwa/icons/ios/512.png">
-    <link rel="apple-touch-icon" sizes="1024x1024" href="/pwa/icons/ios/1024.png">
-    <link href="/pwa/icons/ios/1024.png" sizes="1024x1024" rel="apple-touch-startup-image">
-    <link href="/pwa/icons/ios/512.png" sizes="512x512" rel="apple-touch-startup-image">
-    <link href="/pwa/icons/ios/256.png" sizes="256x256" rel="apple-touch-startup-image">
-    <link href="/pwa/icons/ios/192.png" sizes="192x192" rel="apple-touch-startup-image">
 
-
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font Awesome (opcional, como respaldo) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['DM Serif Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        credit: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    animation: {
+                        'slide-up': 'slide-up 0.5s ease-out forwards',
+                        'fade-in': 'fade-in 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        'slide-up': {
+                            from: { opacity: '0', transform: 'translateY(16px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        'fade-in': {
+                            from: { opacity: '0' },
+                            to: { opacity: '1' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
+        html { scroll-behavior: smooth; }
+
+        .hover-lift {
+            transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.12);
         }
 
-        /* Animaciones personalizadas */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .product-img {
+            aspect-ratio: 4/3;
+            object-fit: cover;
         }
 
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
-
-        .animate-fade-in-up-delay-1 {
-            animation: fadeInUp 0.6s ease-out 0.1s forwards;
-            opacity: 0;
-        }
-
-        .animate-fade-in-up-delay-2 {
-            animation: fadeInUp 0.6s ease-out 0.2s forwards;
-            opacity: 0;
-        }
-
-        .animate-fade-in-up-delay-3 {
-            animation: fadeInUp 0.6s ease-out 0.3s forwards;
-            opacity: 0;
-        }
-
-        .hover-scale {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .hover-scale:hover {
-            transform: translateY(-8px);
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
         }
     </style>
 </head>
 
-<body class="min-h-screen bg-white">
-    <a href="{{ route('gestion') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors inline-block">
-        Gestionar
-    </a>
+<body class="font-body antialiased bg-slate-50 text-slate-700">
+
 
     <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <header class="sticky top-0 z-50 bg-slate-900 border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-landmark w-8 h-8 text-blue-800 text-2xl"></i>
-                    <div>
-                        <div class="font-semibold text-blue-900">Alcaldía Municipal</div>
-                        <div class="text-sm text-blue-700">Río Viejo, Bolívar</div>
-                    </div>
-                </div>
-                <nav class="hidden md:flex items-center gap-8">
-                    <a href="#inicio" class="text-blue-800 hover:text-red-600 transition-colors">Inicio</a>
-                    <a href="#servicios" class="text-blue-800 hover:text-red-600 transition-colors">Servicios</a>
-                    <a href="#tramites" class="text-blue-800 hover:text-red-600 transition-colors">Trámites</a>
-                    <a href="#contacto" class="text-blue-800 hover:text-red-600 transition-colors">Contacto</a>
+                <a href="/" class="flex items-center shrink-0">
+                    <img src="{{ asset('logosinfondo.png') }}" alt="CreditosHerrera" class="h-12 w-auto">
+                </a>
+
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Electrodomésticos</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Muebles</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Cocina</a>
+                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Hogar</a>
                 </nav>
+
+                <div class="flex items-center gap-3">
+                    <button class="relative p-2 text-slate-300 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                        <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-credit-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    @auth
+                        <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg hover:bg-credit-400 transition-colors">
+                            Mi cuenta
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden sm:inline">Ingresar</a>
+                        <a href="{{ route('register') }}" class="inline-flex items-center gap-1.5 px-4 py-2 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg hover:bg-credit-400 transition-colors shadow-sm">
+                            Solicitar crédito
+                        </a>
+                    @endauth
+                    <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-slate-800 transition-colors" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-900">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#" class="block text-sm font-medium text-slate-300">Electrodomésticos</a>
+                <a href="#" class="block text-sm font-medium text-slate-300">Muebles</a>
+                <a href="#" class="block text-sm font-medium text-slate-300">Cocina</a>
+                <a href="#" class="block text-sm font-medium text-slate-300">Hogar</a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="block text-sm font-semibold text-white">Mi cuenta</a>
+                @else
+                    <a href="{{ route('login') }}" class="block text-sm font-medium text-slate-300">Ingresar</a>
+                    <a href="{{ route('register') }}" class="block text-center px-4 py-2.5 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg">Solicitar crédito</a>
+                @endauth
             </div>
         </div>
     </header>
 
-    <!-- Hero -->
-    <section id="inicio" class="relative h-[600px] overflow-hidden">
-        <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1700769670643-14361ffa6dfe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxDb2xvbWJpYW4lMjB0b3duJTIwZ292ZXJubWVudCUyMGJ1aWxkaW5nJTIwYXJjaGl0ZWN0dXJlfGVufDF8fHx8MTc3NTg1Njk4OXww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Alcaldía Municipal de Río Viejo" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-900/95 to-blue-800/85"></div>
-        </div>
-
-        <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-            <div class="max-w-2xl text-white animate-fade-in-up">
-                <h1 class="text-5xl font-bold mb-4">Ventanilla Única Digital</h1>
-                <p class="text-xl mb-8 text-blue-100">
-                    Todos tus trámites municipales en un solo lugar. Rápido, seguro y sin filas.
-                </p>
-
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href=""
-                        class="bg-red-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-red-700 transition-colors shadow-lg text-center">
-                        Iniciar Trámite
-                    </a>
-                    <a href=""
-                        class="bg-white text-blue-900 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors shadow-lg text-center">
-                        Consultar Estado
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Buscador -->
-    <section class="py-12 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-2xl mx-auto">
-                <form action="" method="GET" class="relative">
-                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-blue-400"></i>
-                    <input type="text" name="q" placeholder="Buscar trámite o servicio..."
-                        class="w-full pl-12 pr-4 py-4 rounded-lg border-2 border-blue-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Servicios Principales -->
-    <section id="servicios" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-fade-in-up">
-                <h2 class="text-4xl font-bold text-blue-900 mb-4">Servicios Principales</h2>
-                <p class="text-lg text-blue-700">Accede a los servicios más solicitados de manera rápida</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                @php
-                    $servicios = [
-                        ['icon' => 'fa-file-alt', 'titulo' => 'Trámites y Servicios', 'descripcion' => 'Realiza tus solicitudes sin filas', 'color' => 'bg-blue-50', 'iconColor' => 'text-blue-800'],
-                        ['icon' => 'fa-credit-card', 'titulo' => 'Pagos en Línea', 'descripcion' => 'Impuestos y servicios municipales', 'color' => 'bg-red-50', 'iconColor' => 'text-red-600'],
-                        ['icon' => 'fa-building', 'titulo' => 'Obras Públicas', 'descripcion' => 'Consulta proyectos en ejecución', 'color' => 'bg-blue-50', 'iconColor' => 'text-blue-800'],
-                        ['icon' => 'fa-users', 'titulo' => 'Atención Ciudadana', 'descripcion' => 'PQRS y solicitudes de ayuda', 'color' => 'bg-red-50', 'iconColor' => 'text-red-600'],
-                    ];
-                @endphp
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Trámites Frecuentes -->
-    <section id="tramites" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="animate-fade-in-up">
-                    <h2 class="text-4xl font-bold text-blue-900 mb-4">Trámites Frecuentes</h2>
-                    <p class="text-lg text-blue-700 mb-8">
-                        Los certificados y documentos más solicitados por nuestros ciudadanos
-                    </p>
-
-                    <div class="space-y-3">
-                        @php
-                            $tramites = [
-                                'Certificado de Residencia',
-                                'Paz y Salvo de Impuestos',
-                                'Permiso de Construcción',
-                                'Registro de Defunción',
-                                'Licencia de Funcionamiento',
-                                'Certificado de Nomenclatura',
-                            ];
-                        @endphp
-
-
+    <!-- Main -->
+    <main>
+        <!-- Hero — categorías -->
+        <section class="bg-white border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+                    <div class="flex-1 text-center lg:text-left">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-credit-100 text-credit-700 text-sm font-medium mb-4">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Aprobación en minutos
+                        </span>
+                        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl text-slate-900 leading-tight mb-4">
+                            El hogar que sueñas,<br>
+                            <span class="text-credit-500">a crédito hoy</span>
+                        </h1>
+                        <p class="text-slate-500 text-lg max-w-lg mx-auto lg:mx-0 mb-8">
+                            Electrodomésticos, muebles, decoración y más. Llévalo ahora y paga cómodamente en cuotas.
+                        </p>
+                        <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                            <a href="#productos" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-semibold rounded-xl hover:bg-slate-800 transition-colors">
+                                Ver productos
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </a>
+                            <a href="{{ route('register') }}" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-credit-500 text-credit-600 font-semibold rounded-xl hover:bg-credit-50 transition-colors">
+                                Solicitar crédito
+                            </a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="bg-blue-800 text-white p-8 rounded-2xl animate-fade-in-up">
-                    <i class="fas fa-clock w-12 h-12 mb-4 text-4xl"></i>
-                    <h3 class="text-2xl font-bold mb-4">Horarios de Atención</h3>
-
-                    <div class="space-y-4">
-                        <div>
-                            <div class="font-semibold mb-1">Lunes a Viernes</div>
-                            <div class="text-blue-100">8:00 AM - 12:00 PM</div>
-                            <div class="text-blue-100">2:00 PM - 6:00 PM</div>
-                        </div>
-
-                        <div class="border-t border-blue-600 pt-4">
-                            <div class="font-semibold mb-1">Sábados</div>
-                            <div class="text-blue-100">8:00 AM - 12:00 PM</div>
-                        </div>
-
-                        <div class="border-t border-blue-600 pt-4">
-                            <div class="bg-red-600 p-4 rounded-lg">
-                                <div class="font-semibold mb-2">
-                                    ⚡ Atención Virtual 24/7
+                    <div class="flex-1 w-full max-w-lg">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="rounded-xl bg-slate-100 p-4 text-center">
+                                <div class="w-10 h-10 rounded-lg bg-credit-100 flex items-center justify-center mx-auto mb-2">
+                                    <svg class="w-5 h-5 text-credit-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                                    </svg>
                                 </div>
-                                <div class="text-sm text-white">
-                                    Realiza tus trámites en línea en cualquier momento
+                                <div class="font-display text-lg text-slate-900">Tecnología</div>
+                                <div class="text-xs text-slate-500">Desde $30,000/mes</div>
+                            </div>
+                            <div class="rounded-xl bg-slate-100 p-4 text-center">
+                                <div class="w-10 h-10 rounded-lg bg-credit-100 flex items-center justify-center mx-auto mb-2">
+                                    <svg class="w-5 h-5 text-credit-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                                    </svg>
                                 </div>
+                                <div class="font-display text-lg text-slate-900">Electro</div>
+                                <div class="text-xs text-slate-500">Desde $50,000/mes</div>
+                            </div>
+                            <div class="rounded-xl bg-slate-100 p-4 text-center">
+                                <div class="w-10 h-10 rounded-lg bg-credit-100 flex items-center justify-center mx-auto mb-2">
+                                    <svg class="w-5 h-5 text-credit-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                                    </svg>
+                                </div>
+                                <div class="font-display text-lg text-slate-900">Muebles</div>
+                                <div class="text-xs text-slate-500">Desde $40,000/mes</div>
+                            </div>
+                            <div class="rounded-xl bg-slate-100 p-4 text-center">
+                                <div class="w-10 h-10 rounded-lg bg-credit-100 flex items-center justify-center mx-auto mb-2">
+                                    <svg class="w-5 h-5 text-credit-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V12m0 0v6m0-6h6m-6 0H6" />
+                                    </svg>
+                                </div>
+                                <div class="font-display text-lg text-slate-900">Cocina</div>
+                                <div class="text-xs text-slate-500">Desde $20,000/mes</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contacto -->
-    <section id="contacto" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-fade-in-up">
-                <h2 class="text-4xl font-bold text-blue-900 mb-4">Contáctanos</h2>
-                <p class="text-lg text-blue-700">Estamos aquí para ayudarte</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center animate-fade-in-up-delay-1">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-map-marker-alt w-8 h-8 text-blue-800 text-2xl"></i>
-                    </div>
-                    <h3 class="font-semibold text-blue-900 mb-2">Ubicación</h3>
-                    <p class="text-blue-700">
-                        Calle Principal #12-34<br>
-                        Río Viejo, Bolívar
-                    </p>
-                </div>
-
-                <div class="text-center animate-fade-in-up-delay-2">
-                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-phone w-8 h-8 text-red-600 text-2xl"></i>
-                    </div>
-                    <h3 class="font-semibold text-blue-900 mb-2">Teléfono</h3>
-                    <p class="text-blue-700">
-                        (605) 123-4567<br>
-                        Línea gratuita: 018000-123456
-                    </p>
-                </div>
-
-                <div class="text-center animate-fade-in-up-delay-3">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-envelope w-8 h-8 text-blue-800 text-2xl"></i>
-                    </div>
-                    <h3 class="font-semibold text-blue-900 mb-2">Correo Electrónico</h3>
-                    <p class="text-blue-700">
-                        contacto@rioviejo-bolivar.gov.co<br>
-                        tramites@rioviejo-bolivar.gov.co
-                    </p>
+        <!-- Filtros rápidos -->
+        <section class="bg-white border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
+                    <button class="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium whitespace-nowrap">Todos</button>
+                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Electrodomésticos</button>
+                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Muebles</button>
+                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Cocina</button>
+                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Tecnología</button>
+                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Decoración</button>
+                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Jardín</button>
+                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Iluminación</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Productos -->
+        <section id="productos" class="py-8 lg:py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="font-display text-2xl sm:text-3xl text-slate-900">Productos destacados</h2>
+                        <p class="text-slate-500 text-sm mt-1">Artículos para tu hogar con crédito fácil</p>
+                    </div>
+                    <div class="hidden sm:flex items-center gap-2 text-sm text-slate-500">
+                        <span>Ordenar por:</span>
+                        <select class="bg-slate-100 rounded-lg px-3 py-1.5 text-sm font-medium text-slate-700 border-0 focus:ring-2 focus:ring-credit-500">
+                            <option>Más populares</option>
+                            <option>Menor precio</option>
+                            <option>Mayor precio</option>
+                        </select>
+                    </div>
+                </div>
+
+                @php
+                    $productos = [
+                        [
+                            'nombre' => 'Nevera No Frost 400L',
+                            'categoria' => 'Electrodomésticos',
+                            'precio' => 2499000,
+                            'cuota' => 104125,
+                            'img' => 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400&h=300&fit=crop',
+                            'badge' => 'Más vendido',
+                        ],
+                        [
+                            'nombre' => 'Sofá Cama 3 Puestos',
+                            'categoria' => 'Muebles',
+                            'precio' => 1899000,
+                            'cuota' => 79125,
+                            'img' => 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                        [
+                            'nombre' => 'Lavadora 18kg',
+                            'categoria' => 'Electrodomésticos',
+                            'precio' => 1799000,
+                            'cuota' => 74958,
+                            'img' => 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400&h=300&fit=crop',
+                            'badge' => 'En oferta',
+                        ],
+                        [
+                            'nombre' => 'Juego de Comedor 6 Puestos',
+                            'categoria' => 'Muebles',
+                            'precio' => 2199000,
+                            'cuota' => 91625,
+                            'img' => 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                        [
+                            'nombre' => 'TV Smart 65" 4K',
+                            'categoria' => 'Tecnología',
+                            'precio' => 2999000,
+                            'cuota' => 124958,
+                            'img' => 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=300&fit=crop',
+                            'badge' => 'Nuevo',
+                        ],
+                        [
+                            'nombre' => 'Estufa 5 Bocas',
+                            'categoria' => 'Cocina',
+                            'precio' => 1299000,
+                            'cuota' => 54125,
+                            'img' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                        [
+                            'nombre' => 'Closet 2 Puertas',
+                            'categoria' => 'Muebles',
+                            'precio' => 999000,
+                            'cuota' => 41625,
+                            'img' => 'https://images.unsplash.com/photo-1597006335776-25b2fc72b1d6?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                        [
+                            'nombre' => 'Licuadora Oster 10 Velocidades',
+                            'categoria' => 'Cocina',
+                            'precio' => 219000,
+                            'cuota' => 9125,
+                            'img' => 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                        [
+                            'nombre' => 'Colchón Doble Espuma',
+                            'categoria' => 'Hogar',
+                            'precio' => 1399000,
+                            'cuota' => 58292,
+                            'img' => 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                        [
+                            'nombre' => 'Horno Microondas 25L',
+                            'categoria' => 'Cocina',
+                            'precio' => 419000,
+                            'cuota' => 17458,
+                            'img' => 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                        [
+                            'nombre' => 'Escritorio Madera 120cm',
+                            'categoria' => 'Muebles',
+                            'precio' => 599000,
+                            'cuota' => 24958,
+                            'img' => 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=400&h=300&fit=crop',
+                            'badge' => 'En oferta',
+                        ],
+                        [
+                            'nombre' => 'Plancha Vapor Vertical',
+                            'categoria' => 'Hogar',
+                            'precio' => 159000,
+                            'cuota' => 6625,
+                            'img' => 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop',
+                            'badge' => null,
+                        ],
+                    ];
+                    $formatter = function($amount) {
+                        return '$ ' . number_format($amount, 0, ',', '.');
+                    };
+                @endphp
+
+                <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+                    @foreach($productos as $producto)
+                        <div class="group rounded-xl bg-white border border-slate-200 overflow-hidden hover-lift flex flex-col">
+                            <div class="relative overflow-hidden">
+                                <img
+                                    src="{{ $producto['img'] }}"
+                                    alt="{{ $producto['nombre'] }}"
+                                    class="w-full product-img group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
+                                >
+                                @if($producto['badge'])
+                                    <span class="absolute top-2 left-2 px-2.5 py-0.5 rounded-full text-xs font-semibold
+                                        {{ $producto['badge'] === 'Más vendido' ? 'bg-credit-500 text-slate-900' : '' }}
+                                        {{ $producto['badge'] === 'En oferta' ? 'bg-red-500 text-white' : '' }}
+                                        {{ $producto['badge'] === 'Nuevo' ? 'bg-blue-500 text-white' : '' }}
+                                    ">{{ $producto['badge'] }}</span>
+                                @endif
+                                <button class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                                    <svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="p-3 sm:p-4 flex flex-col flex-1">
+                                <span class="text-xs text-slate-400 uppercase tracking-wide">{{ $producto['categoria'] }}</span>
+                                <h3 class="font-semibold text-slate-900 text-sm sm:text-base mt-0.5 mb-1 leading-tight">{{ $producto['nombre'] }}</h3>
+                                <div class="mt-auto pt-2">
+                                    <div class="text-lg sm:text-xl font-display text-slate-900">{{ $formatter($producto['precio']) }}</div>
+                                    <div class="flex items-center gap-1 text-xs sm:text-sm text-credit-600 font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        {{ $formatter($producto['cuota']) }}/mes
+                                    </div>
+                                </div>
+                                <button class="mt-3 w-full px-3 py-2 sm:py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors">
+                                    Lo quiero a crédito
+                                </button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="text-center mt-10">
+                    <button class="px-8 py-3 border-2 border-slate-300 text-slate-600 font-semibold rounded-xl hover:border-slate-900 hover:text-slate-900 transition-colors">
+                        Ver todos los productos
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cómo funciona el crédito -->
+        <section class="py-16 lg:py-20 bg-slate-900 mt-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-14">
+                    <span class="inline-block px-3 py-1 rounded-full bg-credit-500/10 text-credit-400 text-sm font-medium mb-4">Cómo funciona</span>
+                    <h2 class="font-display text-3xl sm:text-4xl text-white mb-4">Comprar a crédito es muy fácil</h2>
+                    <p class="text-slate-400">En 3 pasos llevas lo que necesitas a casa.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 lg:gap-16">
+                    <div class="text-center">
+                        <div class="w-14 h-14 rounded-xl bg-credit-500/10 border border-credit-500/20 flex items-center justify-center mx-auto mb-5">
+                            <span class="font-display text-2xl text-credit-400">1</span>
+                        </div>
+                        <h3 class="font-display text-lg text-white mb-2">Elige tus productos</h3>
+                        <p class="text-sm text-slate-400">Navega nuestro catálogo y agrega al carrito lo que necesites.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-14 h-14 rounded-xl bg-credit-500/10 border border-credit-500/20 flex items-center justify-center mx-auto mb-5">
+                            <span class="font-display text-2xl text-credit-400">2</span>
+                        </div>
+                        <h3 class="font-display text-lg text-white mb-2">Solicita tu crédito</h3>
+                        <p class="text-sm text-slate-400">Llena tus datos y te aprobamos en minutos. Sin papeleo.</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-14 h-14 rounded-xl bg-credit-500/10 border border-credit-500/20 flex items-center justify-center mx-auto mb-5">
+                            <span class="font-display text-2xl text-credit-400">3</span>
+                        </div>
+                        <h3 class="font-display text-lg text-white mb-2">Recibe y paga en cuotas</h3>
+                        <p class="text-sm text-slate-400">Recibes en casa y pagas en cuotas fijas. Sin sorpresas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Beneficios exprés -->
+        <section class="py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="font-semibold text-slate-900 text-sm">Aprobación rápida</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Respuesta en minutos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="font-semibold text-slate-900 text-sm">Sin cuota inicial</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Primer pago al mes</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full bg-credit-100 flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-5 h-5 text-credit-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                            </svg>
+                        </div>
+                        <div class="font-semibold text-slate-900 text-sm">Envío gratis</div>
+                        <div class="text-xs text-slate-500 mt-0.5">A todo Colombia</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                            </svg>
+                        </div>
+                        <div class="font-semibold text-slate-900 text-sm">Atención personalizada</div>
+                        <div class="text-xs text-slate-500 mt-0.5">Te acompañamos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-blue-950 text-white py-12">
+    <footer class="bg-slate-900 text-slate-400 py-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
                 <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <i class="fas fa-landmark"></i>
-                        <span class="font-semibold">Alcaldía Municipal</span>
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <img src="{{ asset('logosinfondo.png') }}" alt="CreditosHerrera" class="h-10 w-auto">
                     </div>
-                    <p class="text-gray-400 text-sm">
-                        Comprometidos con el desarrollo y bienestar de Río Viejo, Bolívar.
-                    </p>
+                    <p class="text-sm leading-relaxed">Artículos para tu hogar con crédito fácil. Aprobación en minutos, envío a todo Colombia.</p>
                 </div>
-
                 <div>
-                    <h4 class="font-semibold mb-4">Enlaces Rápidos</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Transparencia</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Plan de Desarrollo</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Normatividad</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Convocatorias</a></li>
+                    <h4 class="font-semibold text-white mb-4">Categorías</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Electrodomésticos</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Muebles</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cocina</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Tecnología</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Hogar</a></li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="font-semibold mb-4">Atención al Ciudadano</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">PQRS</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Notificaciones Judiciales</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Política de Privacidad</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Términos de Uso</a></li>
+                    <h4 class="font-semibold text-white mb-4">Crédito</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="{{ route('register') }}" class="hover:text-white transition-colors">Solicitar crédito</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Simular cuotas</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Estado de cuenta</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pagar en línea</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Contacto</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-credit-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                            (605) 123-4567
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-credit-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            info@creditosherrera.com
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-credit-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                            Cra 7 # 12-34, Centro
+                        </li>
                     </ul>
                 </div>
             </div>
-
-            <div class="border-t border-blue-900 pt-8 text-center text-sm text-blue-200">
-                © {{ date('Y') }} Alcaldía Municipal de Río Viejo, Bolívar. Todos los derechos reservados.
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+                <p>© {{ date('Y') }} CreditosHerrera. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Política de privacidad</a>
+                    <span class="text-slate-700">·</span>
+                    <a href="#" class="hover:text-white transition-colors">Términos del servicio</a>
+                </div>
             </div>
         </div>
     </footer>
-   @vite(['resources/js/app.js'])
-   <script src="{{ asset('js/app.js') }}"></script>
 
+    @vite(['resources/js/app.js'])
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
-
 </html>
