@@ -104,21 +104,13 @@
                 </nav>
 
                 <div class="flex items-center gap-3">
-                    <button class="relative p-2 text-slate-300 hover:text-white transition-colors">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                        </svg>
-                        <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-credit-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">0</span>
-                    </button>
+                    
                     @auth
                         <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg hover:bg-credit-400 transition-colors">
                             Mi cuenta
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden sm:inline">Ingresar</a>
-                        <a href="{{ route('register') }}" class="inline-flex items-center gap-1.5 px-4 py-2 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg hover:bg-credit-400 transition-colors shadow-sm">
-                            Solicitar crédito
-                        </a>
                     @endauth
                     <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-slate-800 transition-colors" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                         <svg class="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -256,125 +248,27 @@
                 </div>
 
                 @php
-                    $productos = [
-                        [
-                            'nombre' => 'Nevera No Frost 400L',
-                            'categoria' => 'Electrodomésticos',
-                            'precio' => 2499000,
-                            'cuota' => 104125,
-                            'img' => 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400&h=300&fit=crop',
-                            'badge' => 'Más vendido',
-                        ],
-                        [
-                            'nombre' => 'Sofá Cama 3 Puestos',
-                            'categoria' => 'Muebles',
-                            'precio' => 1899000,
-                            'cuota' => 79125,
-                            'img' => 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                        [
-                            'nombre' => 'Lavadora 18kg',
-                            'categoria' => 'Electrodomésticos',
-                            'precio' => 1799000,
-                            'cuota' => 74958,
-                            'img' => 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400&h=300&fit=crop',
-                            'badge' => 'En oferta',
-                        ],
-                        [
-                            'nombre' => 'Juego de Comedor 6 Puestos',
-                            'categoria' => 'Muebles',
-                            'precio' => 2199000,
-                            'cuota' => 91625,
-                            'img' => 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                        [
-                            'nombre' => 'TV Smart 65" 4K',
-                            'categoria' => 'Tecnología',
-                            'precio' => 2999000,
-                            'cuota' => 124958,
-                            'img' => 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=300&fit=crop',
-                            'badge' => 'Nuevo',
-                        ],
-                        [
-                            'nombre' => 'Estufa 5 Bocas',
-                            'categoria' => 'Cocina',
-                            'precio' => 1299000,
-                            'cuota' => 54125,
-                            'img' => 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                        [
-                            'nombre' => 'Closet 2 Puertas',
-                            'categoria' => 'Muebles',
-                            'precio' => 999000,
-                            'cuota' => 41625,
-                            'img' => 'https://images.unsplash.com/photo-1597006335776-25b2fc72b1d6?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                        [
-                            'nombre' => 'Licuadora Oster 10 Velocidades',
-                            'categoria' => 'Cocina',
-                            'precio' => 219000,
-                            'cuota' => 9125,
-                            'img' => 'https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                        [
-                            'nombre' => 'Colchón Doble Espuma',
-                            'categoria' => 'Hogar',
-                            'precio' => 1399000,
-                            'cuota' => 58292,
-                            'img' => 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                        [
-                            'nombre' => 'Horno Microondas 25L',
-                            'categoria' => 'Cocina',
-                            'precio' => 419000,
-                            'cuota' => 17458,
-                            'img' => 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                        [
-                            'nombre' => 'Escritorio Madera 120cm',
-                            'categoria' => 'Muebles',
-                            'precio' => 599000,
-                            'cuota' => 24958,
-                            'img' => 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=400&h=300&fit=crop',
-                            'badge' => 'En oferta',
-                        ],
-                        [
-                            'nombre' => 'Plancha Vapor Vertical',
-                            'categoria' => 'Hogar',
-                            'precio' => 159000,
-                            'cuota' => 6625,
-                            'img' => 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop',
-                            'badge' => null,
-                        ],
-                    ];
                     $formatter = function($amount) {
                         return '$ ' . number_format($amount, 0, ',', '.');
                     };
                 @endphp
 
                 <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-                    @foreach($productos as $producto)
+                    @foreach($products as $producto)
                         <div class="group rounded-xl bg-white border border-slate-200 overflow-hidden hover-lift flex flex-col">
                             <div class="relative overflow-hidden">
-                                <img
-                                    src="{{ $producto['img'] }}"
-                                    alt="{{ $producto['nombre'] }}"
-                                    class="w-full product-img group-hover:scale-105 transition-transform duration-500"
-                                    loading="lazy"
-                                >
-                                @if($producto['badge'])
-                                    <span class="absolute top-2 left-2 px-2.5 py-0.5 rounded-full text-xs font-semibold
-                                        {{ $producto['badge'] === 'Más vendido' ? 'bg-credit-500 text-slate-900' : '' }}
-                                        {{ $producto['badge'] === 'En oferta' ? 'bg-red-500 text-white' : '' }}
-                                        {{ $producto['badge'] === 'Nuevo' ? 'bg-blue-500 text-white' : '' }}
-                                    ">{{ $producto['badge'] }}</span>
+                                @php
+                                    $imgUrl = $producto->images->where('is_primary', true)->first()?->path
+                                        ?? $producto->images->first()?->path;
+                                @endphp
+                                @if($imgUrl)
+                                    <img src="{{ asset('storage/' . $imgUrl) }}" alt="{{ $producto->name }}"
+                                        class="w-full product-img group-hover:scale-105 transition-transform duration-500"
+                                        loading="lazy">
+                                @else
+                                    <div class="w-full product-img bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
+                                        Sin imagen
+                                    </div>
                                 @endif
                                 <button class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
                                     <svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -383,15 +277,15 @@
                                 </button>
                             </div>
                             <div class="p-3 sm:p-4 flex flex-col flex-1">
-                                <span class="text-xs text-slate-400 uppercase tracking-wide">{{ $producto['categoria'] }}</span>
-                                <h3 class="font-semibold text-slate-900 text-sm sm:text-base mt-0.5 mb-1 leading-tight">{{ $producto['nombre'] }}</h3>
+                                <span class="text-xs text-slate-400 uppercase tracking-wide">{{ $producto->category->name }}</span>
+                                <h3 class="font-semibold text-slate-900 text-sm sm:text-base mt-0.5 mb-1 leading-tight">{{ $producto->name }}</h3>
                                 <div class="mt-auto pt-2">
-                                    <div class="text-lg sm:text-xl font-display text-slate-900">{{ $formatter($producto['precio']) }}</div>
+                                    <div class="text-lg sm:text-xl font-display text-slate-900">{{ $formatter($producto->price) }}</div>
                                     <div class="flex items-center gap-1 text-xs sm:text-sm text-credit-600 font-medium">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
-                                        {{ $formatter($producto['cuota']) }}/mes
+                                        {{ $formatter($producto->monthly_payment) }}/mes
                                     </div>
                                 </div>
                                 <button class="mt-3 w-full px-3 py-2 sm:py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-lg hover:bg-slate-800 transition-colors">
@@ -401,13 +295,6 @@
                         </div>
                     @endforeach
                 </div>
-
-                <div class="text-center mt-10">
-                    <button class="px-8 py-3 border-2 border-slate-300 text-slate-600 font-semibold rounded-xl hover:border-slate-900 hover:text-slate-900 transition-colors">
-                        Ver todos los productos
-                    </button>
-                </div>
-            </div>
         </section>
 
         <!-- Cómo funciona el crédito -->
