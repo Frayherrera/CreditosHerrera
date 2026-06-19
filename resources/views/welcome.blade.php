@@ -181,7 +181,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="flex-1 w-full max-w-lg">
+                    <!-- <div class="flex-1 w-full max-w-lg">
                         <div class="grid grid-cols-2 gap-3">
                             <div class="rounded-xl bg-slate-100 p-4 text-center">
                                 <div class="w-10 h-10 rounded-lg bg-credit-100 flex items-center justify-center mx-auto mb-2">
@@ -220,7 +220,7 @@
                                 <div class="text-xs text-slate-500">Desde $20,000/mes</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
