@@ -111,6 +111,21 @@ class ProductController extends Controller
 
         $product->update($validated);
 
+        if ($request->has('delete_images')) {
+            $images = ProductImage::whereIn('id', $request->delete_images)
+                ->where('product_id', $product->id)
+                ->get();
+
+            foreach ($images as $img) {
+                Storage::disk('s3')->delete($img->path);
+                $img->delete();
+            }
+
+            if (!$product->images()->where('is_primary', true)->exists()) {
+                $product->images()->first()?->update(['is_primary' => true]);
+            }
+        }
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('productos', 's3');

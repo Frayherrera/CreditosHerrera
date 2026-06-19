@@ -97,13 +97,26 @@
                 @error('images.*') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 
                 @if($product->exists && $product->images->isNotEmpty())
-                    <div class="flex gap-2 mt-3">
+                    <div class="flex flex-wrap gap-2 mt-3" id="existing-images">
                         @foreach($product->images as $img)
-                            <div class="relative">
-                                <img src="{{ Storage::disk('s3')->url($img->path) }}" alt="" class="w-14 h-14 rounded-lg object-cover border-2 {{ $img->is_primary ? 'border-amber-400' : 'border-gray-200' }}">
+                            <div class="relative group">
+                                <input type="checkbox" name="delete_images[]" value="{{ $img->id }}"
+                                       id="del_img_{{ $img->id }}" class="hidden delete-img-cb"
+                                       autocomplete="off">
+                                <label for="del_img_{{ $img->id }}"
+                                       class="delete-img-label block cursor-pointer relative rounded-lg overflow-hidden ring-2 transition-all duration-200 {{ $img->is_primary ? 'ring-amber-400' : 'ring-gray-200' }}">
+                                    <img src="{{ Storage::disk('s3')->url($img->path) }}" alt=""
+                                         class="w-14 h-14 object-cover transition-all duration-200">
+                                    <div class="absolute inset-0 bg-black/0 flex items-center justify-center transition-all duration-200">
+                                        <svg class="w-6 h-6 text-white opacity-0 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                        </svg>
+                                    </div>
+                                </label>
                             </div>
                         @endforeach
                     </div>
+                    <p class="text-xs text-gray-400 mt-2">Haz clic en una imagen para marcarla como <span class="text-red-500 font-medium">eliminar</span> al guardar.</p>
                 @endif
             </div>
 
@@ -116,4 +129,30 @@
         </form>
     </div>
 </div>
+
+@if($product->exists)
+<script>
+    document.querySelectorAll('.delete-img-cb').forEach(cb => {
+        cb.addEventListener('change', function () {
+            const label = this.closest('.group').querySelector('.delete-img-label');
+            const img = label.querySelector('img');
+            const overlay = label.querySelector('.absolute');
+            const icon = overlay.querySelector('svg');
+            if (this.checked) {
+                label.style.setProperty('--tw-ring-color', 'rgb(239 68 68)');
+                label.classList.add('ring-2', 'ring-red-500');
+                label.classList.remove('ring-amber-400', 'ring-gray-200');
+                img.style.opacity = '0.4';
+                overlay.style.background = 'rgba(0,0,0,0.5)';
+                icon.style.opacity = '1';
+            } else {
+                label.style.removeProperty('--tw-ring-color');
+                img.style.opacity = '1';
+                overlay.style.background = 'rgba(0,0,0,0)';
+                icon.style.opacity = '0';
+            }
+        });
+    });
+</script>
+@endif
 @endsection
