@@ -11,14 +11,21 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->query('search');
+
         $products = Product::with('category', 'images')
             ->withCount('stockMovements')
+            ->when($search, fn($q) => $q->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('sku', 'like', "%{$search}%");
+            }))
             ->orderBy('created_at', 'desc')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
-        return view('dashboard.inventario.productos.index', compact('products'));
+        return view('dashboard.inventario.productos.index', compact('products', 'search'));
     }
 
     public function create()

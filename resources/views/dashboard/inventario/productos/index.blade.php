@@ -5,17 +5,33 @@
 
 @section('content')
 
-<div class="flex items-center justify-between mb-6">
-    <div>
-        <p class="text-sm text-gray-500">{{ $products->total() }} productos registrados</p>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+    <p class="text-sm text-gray-500">{{ $products->total() }} productos registrados</p>
+    <div class="flex items-center gap-3 w-full sm:w-auto">
+        <form action="{{ route('inventario.productos.index') }}" method="GET" class="relative flex-1 sm:flex-initial">
+            <input type="text" name="search" value="{{ $search ?? '' }}" autocomplete="off"
+                placeholder="Buscar producto o SKU…"
+                class="w-full sm:w-64 rounded-xl border-gray-200 bg-gray-50 pl-10 pr-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+            @if($search)
+                <a href="{{ route('inventario.productos.index') }}"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </a>
+            @endif
+        </form>
+        <a href="{{ route('inventario.productos.create') }}"
+            class="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-all shadow-sm shrink-0">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Nuevo
+        </a>
     </div>
-    <a href="{{ route('inventario.productos.create') }}"
-        class="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-all shadow-sm">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-        Nuevo producto
-    </a>
 </div>
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
