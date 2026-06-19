@@ -19,7 +19,12 @@ Route::get('/', function () {
         ->get();
 
     return view('welcome', compact('categories', 'products'));
-});
+})->name('home');
+
+Route::get('/productos/{producto:slug}', function (Product $producto) {
+    $producto->load('category', 'images');
+    return view('productos.show', compact('producto'));
+})->name('productos.show');
 
 Route::get('/gestion', function () {
     return view('gestion');
