@@ -221,6 +221,7 @@
         document.getElementById('distributor-field').classList.toggle('hidden', type !== 'exit');
         document.getElementById('supplier-field').classList.toggle('hidden', type !== 'entry');
     }
+    toggleDistributorField();
 </script>
 
 @endsection
