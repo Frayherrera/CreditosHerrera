@@ -62,7 +62,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $i => $image) {
-                $path = $image->store('productos', 'public');
+                $path = $image->store('productos', 's3');
                 ProductImage::create([
                     'product_id' => $product->id,
                     'path' => $path,
@@ -113,7 +113,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('productos', 'public');
+                $path = $image->store('productos', 's3');
                 ProductImage::create([
                     'product_id' => $product->id,
                     'path' => $path,
@@ -129,7 +129,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         foreach ($product->images as $image) {
-            Storage::disk('public')->delete($image->path);
+            Storage::disk('s3')->delete($image->path);
         }
         $product->delete();
 

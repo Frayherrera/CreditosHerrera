@@ -54,7 +54,7 @@
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-3">
                             @if($product->images->where('is_primary', true)->first())
-                                <img src="{{ asset('storage/' . $product->images->where('is_primary', true)->first()->path) }}" alt="" class="w-9 h-9 rounded-lg object-cover">
+                                <img src="{{ Storage::disk('s3')->url($product->images->where('is_primary', true)->first()->path) }}" alt="" class="w-9 h-9 rounded-lg object-cover">
                             @else
                                 <div class="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center">
                                     <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">

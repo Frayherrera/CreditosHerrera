@@ -100,7 +100,7 @@
                     <div class="flex gap-2 mt-3">
                         @foreach($product->images as $img)
                             <div class="relative">
-                                <img src="{{ asset('storage/' . $img->path) }}" alt="" class="w-14 h-14 rounded-lg object-cover border-2 {{ $img->is_primary ? 'border-amber-400' : 'border-gray-200' }}">
+                                <img src="{{ Storage::disk('s3')->url($img->path) }}" alt="" class="w-14 h-14 rounded-lg object-cover border-2 {{ $img->is_primary ? 'border-amber-400' : 'border-gray-200' }}">
                             </div>
                         @endforeach
                     </div>

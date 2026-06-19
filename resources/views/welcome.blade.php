@@ -270,9 +270,9 @@
                                         ?? $producto->images->first()?->path;
                                 @endphp
                                 @if($imgUrl)
-                                    <img src="{{ asset('storage/' . $imgUrl) }}" alt="{{ $producto->name }}"
-                                        class="w-full product-img group-hover:scale-105 transition-transform duration-500"
-                                        loading="lazy">
+<img src="{{ Storage::disk('s3')->url($imgUrl) }}" alt="{{ $producto->name }}"
+                                         class="w-full product-img group-hover:scale-105 transition-transform duration-500"
+                                         loading="lazy">
                                 @else
                                     <div class="w-full product-img bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
                                         Sin imagen

@@ -26,7 +26,7 @@
     <div class="lg:col-span-1">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             @if($product->images->where('is_primary', true)->first())
-                <img src="{{ asset('storage/' . $product->images->where('is_primary', true)->first()->path) }}" alt="" class="w-full aspect-square object-cover">
+                <img src="{{ Storage::disk('s3')->url($product->images->where('is_primary', true)->first()->path) }}" alt="" class="w-full aspect-square object-cover">
             @else
                 <div class="w-full aspect-square bg-gray-50 flex items-center justify-center">
                     <svg class="w-16 h-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
@@ -37,7 +37,7 @@
             @if($product->images->count() > 1)
                 <div class="flex gap-2 p-3 border-t border-gray-100">
                     @foreach($product->images as $img)
-                        <img src="{{ asset('storage/' . $img->path) }}" alt="" class="w-12 h-12 rounded-lg object-cover border-2 {{ $img->is_primary ? 'border-amber-400' : 'border-gray-200' }}">
+                        <img src="{{ Storage::disk('s3')->url($img->path) }}" alt="" class="w-12 h-12 rounded-lg object-cover border-2 {{ $img->is_primary ? 'border-amber-400' : 'border-gray-200' }}">
                     @endforeach
                 </div>
             @endif
