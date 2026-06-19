@@ -29,8 +29,8 @@
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden md:table-cell">Antes</th>
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden md:table-cell">Después</th>
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden lg:table-cell">Usuario</th>
-                    <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden xl:table-cell">Distribuidor</th>
-                    <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden xl:table-cell">Proveedor</th>
+                    <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden md:table-cell">Distribuidor</th>
+                    <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden md:table-cell">Proveedor</th>
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden lg:table-cell">Notas</th>
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider">Fecha</th>
                 </tr>
@@ -55,8 +55,8 @@
                         <td class="px-6 py-4 text-gray-500 hidden md:table-cell">{{ $movement->previous_stock }}</td>
                         <td class="px-6 py-4 text-gray-500 hidden md:table-cell">{{ $movement->new_stock }}</td>
                         <td class="px-6 py-4 text-gray-500 hidden lg:table-cell">{{ $movement->user->name ?? '—' }}</td>
-                        <td class="px-6 py-4 text-gray-500 hidden xl:table-cell">{{ $movement->distributor->name ?? '—' }}</td>
-                        <td class="px-6 py-4 text-gray-500 hidden xl:table-cell">{{ $movement->supplier->name ?? '—' }}</td>
+                        <td class="px-6 py-4 text-gray-500 hidden md:table-cell">{{ $movement->distributor->name ?? '—' }}</td>
+                        <td class="px-6 py-4 text-gray-500 hidden md:table-cell">{{ $movement->supplier->name ?? '—' }}</td>
                         <td class="px-6 py-4 text-gray-400 hidden lg:table-cell max-w-[160px] truncate">{{ $movement->notes ?? '—' }}</td>
                         <td class="px-6 py-4 text-gray-400 text-xs whitespace-nowrap">{{ $movement->created_at->format('d/m/Y H:i') }}</td>
                     </tr>
