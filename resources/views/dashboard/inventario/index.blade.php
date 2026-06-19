@@ -4,7 +4,28 @@
 @section('subtitle', 'Resumen del inventario')
 
 @section('content')
-
+{{-- Quick actions --}}
+<div class="mb-8 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+    <div class="flex items-center justify-between">
+       
+        <div class="flex items-center gap-3">
+            <a href="{{ route('inventario.productos.create') }}"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-all shadow-sm">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Nuevo producto
+            </a>
+            <a href="{{ route('inventario.movimientos.create') }}"
+                class="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-50 transition-all shadow-sm">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                Registrar movimiento
+            </a>
+        </div>
+    </div>
+</div>
 {{-- Stats row --}}
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
     <a href="{{ route('inventario.productos.index') }}"
@@ -81,29 +102,29 @@
         </div>
         <div class="p-6">
             @if($lowStockItems->isEmpty())
-                <div class="flex flex-col items-center py-6 text-center">
-                    <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mb-3">
-                        <svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <p class="text-sm text-gray-500">No hay productos con stock bajo.</p>
+            <div class="flex flex-col items-center py-6 text-center">
+                <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mb-3">
+                    <svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                 </div>
+                <p class="text-sm text-gray-500">No hay productos con stock bajo.</p>
+            </div>
             @else
-                <div class="space-y-1">
-                    @foreach($lowStockItems as $item)
-                        <div class="flex items-center justify-between py-2.5 px-3 -mx-3 rounded-xl hover:bg-gray-50 transition-colors">
-                            <div class="min-w-0 flex-1">
-                                <p class="text-sm font-medium text-gray-900 truncate">{{ $item->name }}</p>
-                                <p class="text-xs text-gray-400">{{ $item->category->name }} · SKU: {{ $item->sku }}</p>
-                            </div>
-                            <div class="text-right ml-4 shrink-0">
-                                <p class="text-sm font-semibold text-red-600">{{ $item->stock }} <span class="text-xs font-normal text-gray-400">uds</span></p>
-                                <p class="text-xs text-gray-400">mín {{ $item->min_stock }}</p>
-                            </div>
-                        </div>
-                    @endforeach
+            <div class="space-y-1">
+                @foreach($lowStockItems as $item)
+                <div class="flex items-center justify-between py-2.5 px-3 -mx-3 rounded-xl hover:bg-gray-50 transition-colors">
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm font-medium text-gray-900 truncate">{{ $item->name }}</p>
+                        <p class="text-xs text-gray-400">{{ $item->category->name }} · SKU: {{ $item->sku }}</p>
+                    </div>
+                    <div class="text-right ml-4 shrink-0">
+                        <p class="text-sm font-semibold text-red-600">{{ $item->stock }} <span class="text-xs font-normal text-gray-400">uds</span></p>
+                        <p class="text-xs text-gray-400">mín {{ $item->min_stock }}</p>
+                    </div>
                 </div>
+                @endforeach
+            </div>
             @endif
         </div>
     </div>
@@ -122,70 +143,46 @@
         </div>
         <div class="p-6">
             @if($recentMovements->isEmpty())
-                <div class="flex flex-col items-center py-6 text-center">
-                    <div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-3">
-                        <svg class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
-                        </svg>
-                    </div>
-                    <p class="text-sm text-gray-500">No hay movimientos recientes.</p>
+            <div class="flex flex-col items-center py-6 text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-3">
+                    <svg class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+                    </svg>
                 </div>
+                <p class="text-sm text-gray-500">No hay movimientos recientes.</p>
+            </div>
             @else
-                <div class="space-y-1">
-                    @foreach($recentMovements as $movement)
-                        <div class="flex items-center justify-between py-2.5 px-3 -mx-3 rounded-xl hover:bg-gray-50 transition-colors">
-                            <div class="min-w-0 flex-1">
-                                <p class="text-sm font-medium text-gray-900 truncate">{{ $movement->product->name ?? '—' }}</p>
-                                <p class="text-xs text-gray-400">
-                                    <span class="inline-flex items-center gap-1">
-                                        @if($movement->type === 'entry')
-                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span>
-                                            Entrada
-                                        @elseif($movement->type === 'exit')
-                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span>
-                                            Salida
-                                        @else
-                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block"></span>
-                                            Ajuste
-                                        @endif
-                                    </span>
-                                    · {{ $movement->quantity }} uds
-                                    @if($movement->user) · {{ $movement->user->name }} @endif
-                                </p>
-                            </div>
-                            <p class="text-xs text-gray-400 shrink-0 ml-4">{{ $movement->created_at->diffForHumans() }}</p>
-                        </div>
-                    @endforeach
+            <div class="space-y-1">
+                @foreach($recentMovements as $movement)
+                <div class="flex items-center justify-between py-2.5 px-3 -mx-3 rounded-xl hover:bg-gray-50 transition-colors">
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm font-medium text-gray-900 truncate">{{ $movement->product->name ?? '—' }}</p>
+                        <p class="text-xs text-gray-400">
+                            <span class="inline-flex items-center gap-1">
+                                @if($movement->type === 'entry')
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"></span>
+                                Entrada
+                                @elseif($movement->type === 'exit')
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500 inline-block"></span>
+                                Salida
+                                @else
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block"></span>
+                                Ajuste
+                                @endif
+                            </span>
+                            · {{ $movement->quantity }} uds
+                            @if($movement->user) · {{ $movement->user->name }} @endif
+                        </p>
+                    </div>
+                    <p class="text-xs text-gray-400 shrink-0 ml-4">{{ $movement->created_at->diffForHumans() }}</p>
                 </div>
+                @endforeach
+            </div>
             @endif
         </div>
     </div>
 </div>
 
-{{-- Quick actions --}}
-<div class="mt-8 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-    <div class="flex items-center justify-between">
-        <div>
-            <h3 class="font-semibold text-gray-900">Acciones rápidas</h3>
-            <p class="text-sm text-gray-500 mt-0.5">Lo que más haces, a un clic</p>
-        </div>
-        <div class="flex items-center gap-3">
-            <a href="{{ route('inventario.productos.create') }}"
-                class="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-all shadow-sm">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                Nuevo producto
-            </a>
-            <a href="{{ route('inventario.movimientos.create') }}"
-                class="inline-flex items-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-50 transition-all shadow-sm">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-                Registrar movimiento
-            </a>
-        </div>
-    </div>
-</div>
+
 
 @endsection

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\InventoryDashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +40,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('movimientos', StockMovementController::class)
             ->parameters(['movimientos' => 'stockMovement'])
             ->only(['index', 'create', 'store']);
+        Route::resource('distribuidores', DistributorController::class)
+            ->parameters(['distribuidores' => 'distributor']);
     });
 });
 

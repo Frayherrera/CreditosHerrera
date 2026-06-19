@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Distributor;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ class StockMovementController extends Controller
 {
     public function index()
     {
-        $movements = StockMovement::with('product', 'user')
+        $movements = StockMovement::with('product', 'user', 'distributor')
             ->latest()
             ->paginate(20);
 
@@ -20,7 +21,8 @@ class StockMovementController extends Controller
     public function create()
     {
         $products = Product::where('status', 'active')->orderBy('name')->get();
-        return view('dashboard.inventario.movimientos.form', compact('products'));
+        $distributors = Distributor::orderBy('name')->get();
+        return view('dashboard.inventario.movimientos.form', compact('products', 'distributors'));
     }
 
     public function store(Request $request)
@@ -30,6 +32,7 @@ class StockMovementController extends Controller
             'type' => 'required|in:entry,exit,adjustment',
             'quantity' => 'required|integer|min:1',
             'notes' => 'nullable|string|max:500',
+            'distributor_id' => 'nullable|required_if:type,exit|exists:distributors,id',
         ]);
 
         $product = Product::findOrFail($validated['product_id']);
@@ -53,6 +56,7 @@ class StockMovementController extends Controller
             'new_stock' => $newStock,
             'notes' => $validated['notes'],
             'user_id' => auth()->id(),
+            'distributor_id' => $validated['distributor_id'] ?? null,
         ]);
 
         $product->update(['stock' => $newStock]);
