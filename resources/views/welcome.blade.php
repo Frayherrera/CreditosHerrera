@@ -11,7 +11,7 @@
 
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=dm-serif-display:400,400i|inter:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=outfit:400,500,600,700|inter:400,500,600,700&display=swap" rel="stylesheet" />
     <link rel="apple-touch-icon" sizes="180x180" href="/pwa/icons/ios/180.png">
     <link rel="apple-touch-icon" sizes="192x192" href="/pwa/icons/ios/192.png">
 
@@ -21,7 +21,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        display: ['DM Serif Display', 'serif'],
+                        display: ['Outfit', 'sans-serif'],
                         body: ['Inter', 'sans-serif'],
                     },
                     colors: {
@@ -83,6 +83,18 @@
             animation: shimmer 1.5s infinite;
         }
     </style>
+
+    <script>
+        function filterProducts(slug) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const isActive = btn.dataset.slug === slug;
+                btn.className = `filter-btn px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap ${isActive ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'} transition-colors`;
+            });
+            document.querySelectorAll('[data-category]').forEach(card => {
+                card.style.display = slug === 'all' || card.dataset.category === slug ? '' : 'none';
+            });
+        }
+    </script>
 </head>
 
 <body class="font-body antialiased bg-slate-50 text-slate-700">
@@ -97,16 +109,16 @@
                 </a>
 
                 <nav class="hidden md:flex items-center gap-6">
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Electrodomésticos</a>
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Muebles</a>
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Cocina</a>
-                    <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Hogar</a>
+                    <a href="#productos" onclick="filterProducts('all')" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Todos</a>
+                    @foreach($categories as $cat)
+                        <a href="#productos" onclick="filterProducts('{{ $cat->slug }}')" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">{{ $cat->name }}</a>
+                    @endforeach
                 </nav>
 
                 <div class="flex items-center gap-3">
                     
                     @auth
-                        <a href="{{ route('dashboard') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg hover:bg-credit-400 transition-colors">
+                        <a href="{{ route('inventario.dashboard') }}" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg hover:bg-credit-400 transition-colors">
                             Mi cuenta
                         </a>
                     @else
@@ -123,12 +135,12 @@
 
         <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-900">
             <div class="px-4 py-4 space-y-3">
-                <a href="#" class="block text-sm font-medium text-slate-300">Electrodomésticos</a>
-                <a href="#" class="block text-sm font-medium text-slate-300">Muebles</a>
-                <a href="#" class="block text-sm font-medium text-slate-300">Cocina</a>
-                <a href="#" class="block text-sm font-medium text-slate-300">Hogar</a>
+                <a href="#productos" onclick="filterProducts('all')" class="block text-sm font-medium text-slate-300">Todos</a>
+                @foreach($categories as $cat)
+                    <a href="#productos" onclick="filterProducts('{{ $cat->slug }}')" class="block text-sm font-medium text-slate-300">{{ $cat->name }}</a>
+                @endforeach
                 @auth
-                    <a href="{{ route('dashboard') }}" class="block text-sm font-semibold text-white">Mi cuenta</a>
+                    <a href="{{ route('inventario.dashboard') }}" class="block text-sm font-semibold text-white">Mi cuenta</a>
                 @else
                     <a href="{{ route('login') }}" class="block text-sm font-medium text-slate-300">Ingresar</a>
                     <a href="{{ route('register') }}" class="block text-center px-4 py-2.5 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg">Solicitar crédito</a>
@@ -217,14 +229,10 @@
         <section class="bg-white border-b border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
-                    <button class="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium whitespace-nowrap">Todos</button>
-                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Electrodomésticos</button>
-                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Muebles</button>
-                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Cocina</button>
-                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Tecnología</button>
-                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Decoración</button>
-                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Jardín</button>
-                    <button class="px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors">Iluminación</button>
+                    <button onclick="filterProducts('all')" class="filter-btn px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium whitespace-nowrap" data-slug="all">Todos</button>
+                    @foreach($categories as $cat)
+                        <button onclick="filterProducts('{{ $cat->slug }}')" class="filter-btn px-4 py-2 rounded-full bg-slate-100 text-slate-600 text-sm font-medium whitespace-nowrap hover:bg-slate-200 transition-colors" data-slug="{{ $cat->slug }}">{{ $cat->name }}</button>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -255,7 +263,7 @@
 
                 <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                     @foreach($products as $producto)
-                        <div class="group rounded-xl bg-white border border-slate-200 overflow-hidden hover-lift flex flex-col">
+                        <div class="group rounded-xl bg-white border border-slate-200 overflow-hidden hover-lift flex flex-col" data-category="{{ $producto->category->slug }}">
                             <div class="relative overflow-hidden">
                                 @php
                                     $imgUrl = $producto->images->where('is_primary', true)->first()?->path
