@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\InventoryDashboardController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockMovementController;
@@ -42,6 +43,8 @@ Route::middleware('auth')->group(function () {
             ->only(['index', 'create', 'store']);
         Route::resource('distribuidores', DistributorController::class)
             ->parameters(['distribuidores' => 'distributor']);
+        Route::resource('proveedores', SupplierController::class)
+            ->parameters(['proveedores' => 'supplier']);
     });
 });
 

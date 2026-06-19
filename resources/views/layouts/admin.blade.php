@@ -74,6 +74,13 @@
                 </svg>
                 Distribuidores
             </a>
+            <a href="{{ route('inventario.proveedores.index') }}"
+                class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {{ request()->routeIs('inventario.proveedores.*') ? 'active' : '' }}">
+                <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H22m-19.5 0h1.125c.621 0 1.125-.504 1.125-1.125V5.25c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v14.75" />
+                </svg>
+                Proveedores
+            </a>
             <a href="{{ route('inventario.movimientos.index') }}"
                 class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium {{ request()->routeIs('inventario.movimientos.*') ? 'active' : '' }}">
                 <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">

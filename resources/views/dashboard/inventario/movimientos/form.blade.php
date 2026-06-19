@@ -170,6 +170,20 @@
                 @error('quantity') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
             </div>
 
+            <div id="supplier-field" class="mb-5 {{ old('type') === 'entry' ? '' : 'hidden' }}">
+                <label for="supplier_id" class="block text-sm font-medium text-gray-700 mb-1.5">Proveedor</label>
+                <select name="supplier_id" id="supplier_id"
+                    class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
+                    <option value="">Seleccionar proveedor...</option>
+                    @foreach($suppliers as $s)
+                        <option value="{{ $s->id }}" @selected(old('supplier_id') == $s->id)>
+                            {{ $s->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('supplier_id') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+            </div>
+
             <div id="distributor-field" class="mb-5 {{ old('type') === 'exit' ? '' : 'hidden' }}">
                 <label for="distributor_id" class="block text-sm font-medium text-gray-700 mb-1.5">Distribuidor</label>
                 <select name="distributor_id" id="distributor_id"
@@ -203,9 +217,9 @@
 
 <script>
     function toggleDistributorField() {
-        const field = document.getElementById('distributor-field');
-        const exitRadio = document.querySelector('input[name="type"][value="exit"]');
-        field.classList.toggle('hidden', !exitRadio.checked);
+        const type = document.querySelector('input[name="type"]:checked')?.value;
+        document.getElementById('distributor-field').classList.toggle('hidden', type !== 'exit');
+        document.getElementById('supplier-field').classList.toggle('hidden', type !== 'entry');
     }
 </script>
 
