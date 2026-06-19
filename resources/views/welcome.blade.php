@@ -12,6 +12,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=outfit:400,500,600,700|inter:400,500,600,700&display=swap" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="/pwa/icons/ios/180.png">
     <link rel="apple-touch-icon" sizes="192x192" href="/pwa/icons/ios/192.png">
 
@@ -263,19 +264,49 @@
 
                 <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
                     @foreach($products as $producto)
-                        <div class="group rounded-xl bg-white border border-slate-200 overflow-hidden hover-lift flex flex-col" data-category="{{ $producto->category->slug }}">
-                            <div class="relative overflow-hidden">
+                        <div class="group rounded-xl bg-white border border-slate-200 overflow-hidden hover-lift flex flex-col" data-category="{{ $producto->category->slug }}" data-card>
+                            <div class="relative overflow-hidden"
+                                 x-data="{
+                                     i: 0,
+                                     urls: @js($producto->images->map(fn($img) => Storage::disk('s3')->url($img->path))->values()),
+                                     interval: null,
+                                     init() {
+                                         if (this.urls.length > 1) {
+                                             const card = this.$el.closest('[data-card]');
+                                             card.addEventListener('mouseenter', () => {
+                                                 this.interval = setInterval(() => {
+                                                     this.i = (this.i + 1) % this.urls.length;
+                                                 }, 2000);
+                                             });
+                                             card.addEventListener('mouseleave', () => {
+                                                 clearInterval(this.interval);
+                                                 this.i = 0;
+                                             });
+                                         }
+                                     }
+                                 }">
                                 @php
                                     $imgUrl = $producto->images->where('is_primary', true)->first()?->path
                                         ?? $producto->images->first()?->path;
                                 @endphp
                                 @if($imgUrl)
-<img src="{{ Storage::disk('s3')->url($imgUrl) }}" alt="{{ $producto->name }}"
-                                         class="w-full product-img group-hover:scale-105 transition-transform duration-500"
-                                         loading="lazy">
+                                <img x-bind:src="urls[i] || '{{ Storage::disk('s3')->url($imgUrl) }}'"
+                                     src="{{ Storage::disk('s3')->url($imgUrl) }}"
+                                     alt="{{ $producto->name }}"
+                                     class="w-full product-img group-hover:scale-105 transition-transform duration-500"
+                                     loading="lazy">
                                 @else
                                     <div class="w-full product-img bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
                                         Sin imagen
+                                    </div>
+                                @endif
+                                @if($producto->images->count() > 1)
+                                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                                        <template x-for="(url, idx) in urls" :key="idx">
+                                            <button @click="i = idx"
+                                                    :class="i === idx ? 'bg-white scale-110' : 'bg-white/40'"
+                                                    class="w-1.5 h-1.5 rounded-full transition-all duration-200"></button>
+                                        </template>
                                     </div>
                                 @endif
                                 <button class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
