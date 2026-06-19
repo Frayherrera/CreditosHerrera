@@ -94,6 +94,7 @@
                     <input type="file" name="images[]" multiple accept="image/jpeg,image/png,image/webp" class="hidden">
                     <button type="button" onclick="this.previousElementSibling.click()" class="mt-2 text-xs text-gray-400 hover:text-gray-600">Seleccionar archivos</button>
                 </div>
+                <div id="preview-container" class="flex flex-wrap gap-2 mt-3"></div>
                 @error('images.*') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 
                 @if($product->exists && $product->images->isNotEmpty())
@@ -130,8 +131,27 @@
     </div>
 </div>
 
-@if($product->exists)
 <script>
+    const fileInput = document.querySelector('input[name="images[]"]');
+    const preview = document.getElementById('preview-container');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            preview.innerHTML = '';
+            for (const file of this.files) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'relative';
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.className = 'w-14 h-14 rounded-lg object-cover border-2 border-amber-400';
+                img.alt = file.name;
+                wrapper.appendChild(img);
+                preview.appendChild(wrapper);
+            }
+        });
+    }
+
+    @if($product->exists)
     document.querySelectorAll('.delete-img-cb').forEach(cb => {
         cb.addEventListener('change', function () {
             const label = this.closest('.group').querySelector('.delete-img-label');
@@ -153,6 +173,6 @@
             }
         });
     });
+    @endif
 </script>
-@endif
 @endsection
