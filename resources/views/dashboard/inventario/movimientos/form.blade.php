@@ -24,12 +24,12 @@
                             onchange="toggleDistributorField()">
                         <span class="text-sm text-gray-700">Salida</span>
                     </label>
-                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/50 transition-all cursor-pointer">
+                    <!-- <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/50 transition-all cursor-pointer">
                         <input type="radio" name="type" value="adjustment" @checked(old('type')==='adjustment' )
                             class="text-amber-500 focus:ring-amber-400"
                             onchange="toggleDistributorField()">
                         <span class="text-sm text-gray-700">Ajuste</span>
-                    </label>
+                    </label> -->
                 </div>
                 @error('type') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
             </div>
