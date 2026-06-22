@@ -32,6 +32,7 @@ class StockMovementController extends Controller
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
             'type' => 'required|in:entry,exit,adjustment',
+            'date' => 'required|date',
             'quantity' => 'required|integer|min:1',
             'notes' => 'nullable|string|max:500',
             'distributor_id' => 'nullable|required_if:type,exit|exists:distributors,id',
@@ -54,6 +55,7 @@ class StockMovementController extends Controller
         StockMovement::create([
             'product_id' => $validated['product_id'],
             'type' => $validated['type'],
+            'date' => $validated['date'],
             'quantity' => $validated['type'] === 'adjustment' ? $validated['quantity'] : $validated['quantity'],
             'previous_stock' => $previousStock,
             'new_stock' => $newStock,

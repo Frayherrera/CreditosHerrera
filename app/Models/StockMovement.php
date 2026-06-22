@@ -10,9 +10,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class StockMovement extends Model
 {
     protected $fillable = [
-        'product_id', 'type', 'quantity',
+        'product_id', 'type', 'date', 'quantity',
         'previous_stock', 'new_stock', 'notes', 'user_id', 'distributor_id', 'supplier_id',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
 
     public function product(): BelongsTo
     {

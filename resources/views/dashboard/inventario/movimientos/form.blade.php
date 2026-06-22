@@ -9,6 +9,36 @@
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
         <form action="{{ route('inventario.movimientos.store') }}" method="POST">
             @csrf
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de movimiento</label>
+                <div class="flex gap-4">
+                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-emerald-400 has-[:checked]:bg-emerald-50/50 transition-all cursor-pointer">
+                        <input type="radio" name="type" value="entry" checked @checked(old('type')==='entry' )
+                            class="text-emerald-500 focus:ring-emerald-400"
+                            onchange="toggleDistributorField()">
+                        <span class="text-sm text-gray-700">Entrada</span>
+                    </label>
+                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-red-400 has-[:checked]:bg-red-50/50 transition-all cursor-pointer">
+                        <input type="radio" name="type" value="exit" @checked(old('type')==='exit' )
+                            class="text-red-500 focus:ring-red-400"
+                            onchange="toggleDistributorField()">
+                        <span class="text-sm text-gray-700">Salida</span>
+                    </label>
+                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/50 transition-all cursor-pointer">
+                        <input type="radio" name="type" value="adjustment" @checked(old('type')==='adjustment' )
+                            class="text-amber-500 focus:ring-amber-400"
+                            onchange="toggleDistributorField()">
+                        <span class="text-sm text-gray-700">Ajuste</span>
+                    </label>
+                </div>
+                @error('type') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+            </div>
+            <div class="mb-5">
+                <label for="date" class="block text-sm font-medium text-gray-700 mb-1.5">Fecha del movimiento</label>
+                <input type="date" name="date" id="date" value="{{ old('date', date('Y-m-d')) }}" required
+                    class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
+                @error('date') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+            </div>
 
             <div class="mb-5 relative" id="product-search-wrapper">
                 <label for="product_search" class="block text-sm font-medium text-gray-700 mb-1.5">Producto</label>
@@ -25,12 +55,12 @@
             </div>
 
             @php
-                $productsJson = $products->map(fn($p) => [
-                    'id' => $p->id,
-                    'name' => $p->name,
-                    'sku' => $p->sku,
-                    'stock' => $p->stock,
-                ]);
+            $productsJson = $products->map(fn($p) => [
+            'id' => $p->id,
+            'name' => $p->name,
+            'sku' => $p->sku,
+            'stock' => $p->stock,
+            ]);
             @endphp
 
             <script>
@@ -137,30 +167,7 @@
                 });
             </script>
 
-            <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de movimiento</label>
-                <div class="flex gap-4">
-                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-emerald-400 has-[:checked]:bg-emerald-50/50 transition-all cursor-pointer">
-                        <input type="radio" name="type" value="entry" checked @checked(old('type') === 'entry')
-                            class="text-emerald-500 focus:ring-emerald-400"
-                            onchange="toggleDistributorField()">
-                        <span class="text-sm text-gray-700">Entrada</span>
-                    </label>
-                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-red-400 has-[:checked]:bg-red-50/50 transition-all cursor-pointer">
-                        <input type="radio" name="type" value="exit" @checked(old('type') === 'exit')
-                            class="text-red-500 focus:ring-red-400"
-                            onchange="toggleDistributorField()">
-                        <span class="text-sm text-gray-700">Salida</span>
-                    </label>
-                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/50 transition-all cursor-pointer">
-                        <input type="radio" name="type" value="adjustment" @checked(old('type') === 'adjustment')
-                            class="text-amber-500 focus:ring-amber-400"
-                            onchange="toggleDistributorField()">
-                        <span class="text-sm text-gray-700">Ajuste</span>
-                    </label>
-                </div>
-                @error('type') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
-            </div>
+
 
             <div class="mb-5">
                 <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1.5">Cantidad</label>
@@ -176,9 +183,9 @@
                     class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
                     <option value="">Seleccionar proveedor...</option>
                     @foreach($suppliers as $s)
-                        <option value="{{ $s->id }}" @selected(old('supplier_id') == $s->id)>
-                            {{ $s->name }}
-                        </option>
+                    <option value="{{ $s->id }}" @selected(old('supplier_id')==$s->id)>
+                        {{ $s->name }}
+                    </option>
                     @endforeach
                 </select>
                 @error('supplier_id') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
@@ -190,9 +197,9 @@
                     class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
                     <option value="">Seleccionar distribuidor...</option>
                     @foreach($distributors as $d)
-                        <option value="{{ $d->id }}" @selected(old('distributor_id') == $d->id)>
-                            {{ $d->name }}
-                        </option>
+                    <option value="{{ $d->id }}" @selected(old('distributor_id')==$d->id)>
+                        {{ $d->name }}
+                    </option>
                     @endforeach
                 </select>
                 @error('distributor_id') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror

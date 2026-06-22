@@ -58,7 +58,7 @@
                         <td class="px-6 py-4 text-gray-500">{{ $movement->distributor->name ?? '—' }}</td>
                         <td class="px-6 py-4 text-gray-500">{{ $movement->supplier->name ?? '—' }}</td>
                         <td class="px-6 py-4 text-gray-400 hidden lg:table-cell max-w-[160px] truncate">{{ $movement->notes ?? '—' }}</td>
-                        <td class="px-6 py-4 text-gray-400 text-xs whitespace-nowrap">{{ $movement->created_at->format('d/m/Y H:i') }}</td>
+                        <td class="px-6 py-4 text-gray-900 text-xs whitespace-nowrap">{{ $movement->date?->format('d/m/Y') }}</td>
                     </tr>
                 @endforeach
             </tbody>
