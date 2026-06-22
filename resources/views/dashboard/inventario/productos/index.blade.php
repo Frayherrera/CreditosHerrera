@@ -44,6 +44,7 @@
                 <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider">Precio</th>
                 <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden sm:table-cell">Cuota</th>
                 <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider">Stock</th>
+                <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider">Valor stock</th>
                 <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden sm:table-cell">Estado</th>
                 <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider"></th>
             </tr>
@@ -74,6 +75,7 @@
                             {{ $product->stock }}
                         </span>
                     </td>
+                    <td class="px-6 py-4 text-gray-500">${{ number_format($product->price * $product->stock, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 hidden sm:table-cell">
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $product->status === 'active' ? 'bg-emerald-50 text-emerald-700' : ($product->status === 'inactive' ? 'bg-gray-100 text-gray-600' : 'bg-red-50 text-red-700') }}">
                             {{ $product->status === 'active' ? 'Activo' : ($product->status === 'inactive' ? 'Inactivo' : 'Descontinuado') }}

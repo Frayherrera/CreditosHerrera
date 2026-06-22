@@ -56,19 +56,19 @@
         <p class="text-sm text-gray-500 mt-1">Productos activos</p>
     </a>
 
-    <!-- <a href="{{ route('inventario.productos.index') }}"
-        class="group bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-amber-200 transition-all">
+    <a href="{{ route('inventario.productos.index') }}"
+        class="group bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-teal-200 transition-all">
         <div class="flex items-center justify-between mb-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
-                <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            <div class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            <span class="text-xs font-medium text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">Revisar →</span>
+            <span class="text-xs font-medium text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity">Ver inventario →</span>
         </div>
-        <p class="text-3xl font-bold text-gray-900 tracking-tight">{{ $lowStockProducts }}</p>
-        <p class="text-sm text-gray-500 mt-1">Stock bajo</p>
-    </a> -->
+        <p class="text-3xl font-bold text-gray-900 tracking-tight">${{ number_format($inventoryValue, 0, ',', '.') }}</p>
+        <p class="text-sm text-gray-500 mt-1">Valor del inventario</p>
+    </a>
 
     <a href="{{ route('inventario.categorias.index') }}"
         class="group bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-gray-200 transition-all">

@@ -24,9 +24,14 @@ class InventoryDashboardController extends Controller
             ->where('status', 'active')
             ->get();
 
+        $inventoryValue = Product::where('status', 'active')
+            ->selectRaw('COALESCE(SUM(price * stock), 0) as total')
+            ->value('total');
+
         return view('dashboard.inventario.index', compact(
             'totalProducts', 'activeProducts', 'lowStockProducts',
-            'totalCategories', 'recentMovements', 'lowStockItems'
+            'totalCategories', 'recentMovements', 'lowStockItems',
+            'inventoryValue'
         ));
     }
 }
