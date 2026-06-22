@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-x-auto">
     <table class="w-full text-sm">
         <thead>
             <tr class="border-b border-gray-100 bg-gray-50/50 text-left">
