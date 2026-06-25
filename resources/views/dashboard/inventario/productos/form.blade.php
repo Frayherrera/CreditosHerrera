@@ -90,7 +90,7 @@
                     <svg class="w-8 h-8 text-gray-300 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                     </svg>
-                    <p class="text-sm text-gray-500">Arrastra imágenes aquí o <span class="text-amber-600 font-medium">selecciona archivos</span></p>
+                    <p class="text-sm text-gray-500">Arrastra imágenes aquí, <span class="text-amber-600 font-medium">selecciona archivos</span> o <span class="text-amber-600 font-medium">Ctrl+V</span></p>
                     <input type="file" name="images[]" multiple accept="image/jpeg,image/png,image/webp" class="hidden">
                     <button type="button" onclick="this.previousElementSibling.click()" class="mt-2 text-xs text-gray-400 hover:text-gray-600">Seleccionar archivos</button>
                 </div>
@@ -134,22 +134,60 @@
 <script>
     const fileInput = document.querySelector('input[name="images[]"]');
     const preview = document.getElementById('preview-container');
+    const dropZone = fileInput?.closest('.border-2.border-dashed');
+
+    function showPreview(fileList) {
+        preview.innerHTML = '';
+        for (const file of fileList) {
+            if (!file.type.startsWith('image/')) continue;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'relative';
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.className = 'w-14 h-14 rounded-lg object-cover border-2 border-amber-400';
+            img.alt = file.name;
+            wrapper.appendChild(img);
+            preview.appendChild(wrapper);
+        }
+    }
+
+    function setFileInputFiles(fileList) {
+        const dt = new DataTransfer();
+        for (const file of fileList) {
+            if (file.type.startsWith('image/')) dt.items.add(file);
+        }
+        if (!dt.files.length) return;
+        fileInput.files = dt.files;
+        fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+    }
 
     if (fileInput) {
         fileInput.addEventListener('change', function () {
-            preview.innerHTML = '';
-            for (const file of this.files) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'relative';
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(file);
-                img.className = 'w-14 h-14 rounded-lg object-cover border-2 border-amber-400';
-                img.alt = file.name;
-                wrapper.appendChild(img);
-                preview.appendChild(wrapper);
-            }
+            showPreview(this.files);
         });
     }
+
+    if (dropZone) {
+        dropZone.addEventListener('dragover', e => {
+            e.preventDefault();
+            dropZone.classList.add('border-amber-400', 'bg-amber-50');
+        });
+        dropZone.addEventListener('dragleave', e => {
+            e.preventDefault();
+            dropZone.classList.remove('border-amber-400', 'bg-amber-50');
+        });
+        dropZone.addEventListener('drop', e => {
+            e.preventDefault();
+            dropZone.classList.remove('border-amber-400', 'bg-amber-50');
+            setFileInputFiles(e.dataTransfer.files);
+        });
+    }
+
+    document.addEventListener('paste', e => {
+        if (e.clipboardData.files.length) {
+            setFileInputFiles(e.clipboardData.files);
+        }
+    });
 
     @if($product->exists)
     document.querySelectorAll('.delete-img-cb').forEach(cb => {
