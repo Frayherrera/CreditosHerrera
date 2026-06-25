@@ -29,7 +29,7 @@
         }
     </script>
     <style>
-        .product-img { aspect-ratio: 4/3; object-fit: cover; }
+        .product-img { aspect-ratio: 4/3; object-fit: contain; background: #f8fafc; padding: 1rem; }
     </style>
 </head>
 <body class="font-body antialiased bg-slate-50 text-slate-700">
@@ -54,7 +54,7 @@
             <div x-data="{ i: 0, imgs: @js($producto->images->map(fn($img) => Storage::disk('s3')->url($img->path))->values()) }">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <template x-if="imgs.length">
-                        <img :src="imgs[i]" alt="{{ $producto->name }}" class="w-full aspect-square object-cover">
+                        <img :src="imgs[i]" alt="{{ $producto->name }}" class="w-full aspect-square object-contain bg-slate-50 p-4">
                     </template>
                     <template x-if="!imgs.length">
                         <div class="w-full aspect-square bg-slate-100 flex items-center justify-center text-slate-400">Sin imagen</div>
@@ -66,7 +66,7 @@
                             <button @click="i = idx"
                                     :class="i === idx ? 'ring-2 ring-amber-400' : 'ring-1 ring-slate-200 opacity-60 hover:opacity-100'"
                                     class="w-16 h-16 rounded-lg overflow-hidden shrink-0 transition-all">
-                                <img :src="url" alt="" class="w-full h-full object-cover">
+                                <img :src="url" alt="" class="w-full h-full object-contain bg-slate-50 p-1">
                             </button>
                         </template>
                     </div>

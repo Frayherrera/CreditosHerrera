@@ -70,8 +70,10 @@
         }
 
         .product-img {
-            aspect-ratio: 4/3;
-            object-fit: cover;
+            aspect-ratio: 1/1;
+            object-fit: contain;
+            padding: 1rem;
+            background: #f8fafc;
         }
 
         @keyframes shimmer {
