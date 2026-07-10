@@ -182,7 +182,6 @@
                     <a href="{{ route('inventario.dashboard') }}" class="block text-sm font-semibold text-white">Mi cuenta</a>
                 @else
                     <a href="{{ route('login') }}" class="block text-sm font-medium text-slate-300">Ingresar</a>
-                    <a href="{{ route('register') }}" class="block text-center px-4 py-2.5 bg-credit-500 text-slate-900 text-sm font-semibold rounded-lg">Solicitar crédito</a>
                 @endauth
             </div>
         </div>
@@ -215,9 +214,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                 </svg>
                             </a>
-                            <a href="{{ route('register') }}" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-credit-500 text-credit-600 font-semibold rounded-xl hover:bg-credit-50 transition-colors">
-                                Solicitar crédito
-                            </a>
+                           
                         </div>
                     </div>
                     <!-- <div class="flex-1 w-full max-w-lg">
