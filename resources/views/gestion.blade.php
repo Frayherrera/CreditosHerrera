@@ -16,7 +16,6 @@
                     <a href="/" class="text-xl font-semibold text-gray-800">Ventanilla Única Digital</a>
                     <div class="space-x-4">
                         <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900">Iniciar Sesión</a>
-                        <a href="{{ route('register') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Registrarse</a>
                     </div>
                 </div>
             </div>

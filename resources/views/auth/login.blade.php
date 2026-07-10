@@ -42,9 +42,5 @@
             Iniciar sesión
         </button>
 
-        <p class="text-center text-sm text-slate-500">
-            ¿No tienes cuenta?
-            <a href="{{ route('register') }}" class="font-semibold text-credit-600 hover:text-credit-700 transition-colors">Regístrate</a>
-        </p>
     </form>
 </x-guest-layout>

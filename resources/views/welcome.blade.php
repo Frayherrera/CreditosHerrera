@@ -497,7 +497,7 @@
                 <div>
                     <h4 class="font-semibold text-white mb-4">Crédito</h4>
                     <ul class="space-y-2.5 text-sm">
-                        <li><a href="{{ route('register') }}" class="hover:text-white transition-colors">Solicitar crédito</a></li>
+                        <li><a href="{{ route('login') }}" class="hover:text-white transition-colors">Solicitar crédito</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Simular cuotas</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Estado de cuenta</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Pagar en línea</a></li>
