@@ -67,4 +67,9 @@ class Product extends Model
     {
         return $query->whereColumn('stock', '<=', 'min_stock');
     }
+
+    public function scopeInStock($query)
+    {
+        return $query->where('stock', '>=', 1);
+    }
 }

@@ -14,15 +14,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $categories = Category::orderBy('name')->get();
     $products = Product::with('category', 'images')
-        ->where('status', 'active')
+        ->active()
+        ->inStock()
         ->orderBy('created_at', 'desc')
         ->get();
 
     return view('welcome', compact('categories', 'products'));
 })->name('home');
 
-Route::get('/productos/{producto:slug}', function (Product $producto) {
-    $producto->load('category', 'images');
+Route::get('/productos/{producto:slug}', function ($slug) {
+    $producto = Product::with('category', 'images')
+        ->active()
+        ->inStock()
+        ->where('slug', $slug)
+        ->firstOrFail();
+
     return view('productos.show', compact('producto'));
 })->name('productos.show');
 
