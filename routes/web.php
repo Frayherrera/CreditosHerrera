@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DistributorController;
+use App\Http\Controllers\FinanceDashboardController;
 use App\Http\Controllers\InventoryDashboardController;
-use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StockMovementController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionCategoryController;
+use App\Http\Controllers\TransactionClassificationController;
+use App\Http\Controllers\TransactionController;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +60,17 @@ Route::middleware('auth')->group(function () {
             ->parameters(['distribuidores' => 'distributor']);
         Route::resource('proveedores', SupplierController::class)
             ->parameters(['proveedores' => 'supplier']);
+    });
+
+    Route::prefix('dashboard/finanzas')->name('finanzas.')->group(function () {
+        Route::get('/', FinanceDashboardController::class)->name('dashboard');
+        Route::get('/reportes/export', [TransactionController::class, 'export'])->name('transacciones.export');
+        Route::resource('transacciones', TransactionController::class)
+            ->parameters(['transacciones' => 'transaction']);
+        Route::resource('categorias', TransactionCategoryController::class)
+            ->parameters(['categorias' => 'category']);
+        Route::resource('clasificaciones', TransactionClassificationController::class)
+            ->parameters(['clasificaciones' => 'classification']);
     });
 });
 
