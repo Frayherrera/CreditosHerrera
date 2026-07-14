@@ -372,7 +372,7 @@
                                 <span class="text-xs text-slate-400 uppercase tracking-wide">{{ $producto->category->name }}</span>
                                 <h3 class="font-semibold text-slate-900 text-sm sm:text-base mt-0.5 mb-1 leading-tight">{{ $producto->name }}</h3>
                                 <div class="mt-auto pt-2">
-                                    <div class="text-lg sm:text-xl font-display text-slate-900">{{ $formatter($producto->price) }}</div>
+                                    <!-- <div class="text-lg sm:text-xl font-display text-slate-900">{{ $formatter($producto->price) }}</div> -->
                                     <div class="flex items-center gap-1 text-xs sm:text-sm text-credit-600 font-medium">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -430,54 +430,13 @@
         </section>
 
         <!-- Beneficios exprés -->
-        <section class="py-12 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="text-center">
-                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div class="font-semibold text-slate-900 text-sm">Aprobación rápida</div>
-                        <div class="text-xs text-slate-500 mt-0.5">Respuesta en minutos</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div class="font-semibold text-slate-900 text-sm">Sin cuota inicial</div>
-                        <div class="text-xs text-slate-500 mt-0.5">Primer pago al mes</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-10 h-10 rounded-full bg-credit-100 flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-5 h-5 text-credit-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                            </svg>
-                        </div>
-                        <div class="font-semibold text-slate-900 text-sm">Envío gratis</div>
-                        <div class="text-xs text-slate-500 mt-0.5">A todo Colombia</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-3">
-                            <svg class="w-5 h-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
-                            </svg>
-                        </div>
-                        <div class="font-semibold text-slate-900 text-sm">Atención personalizada</div>
-                        <div class="text-xs text-slate-500 mt-0.5">Te acompañamos</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
     </main>
 
     <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
                 <div>
                     <div class="flex items-center gap-2.5 mb-4">
                         <img src="{{ asset('logosinfondo.png') }}" alt="CreditosHerrera" class="h-10 w-auto">
@@ -492,16 +451,6 @@
                         <li><a href="#" class="hover:text-white transition-colors">Cocina</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Tecnología</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Hogar</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Crédito</h4>
-                    <ul class="space-y-2.5 text-sm">
-                        <li><a href="{{ route('login') }}" class="hover:text-white transition-colors">Solicitar crédito</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Simular cuotas</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Estado de cuenta</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Pagar en línea</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Términos y condiciones</a></li>
                     </ul>
                 </div>
                 <div>
