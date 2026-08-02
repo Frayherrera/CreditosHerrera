@@ -6,7 +6,7 @@
 @section('content')
 
 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-    <p class="text-sm text-gray-500">{{ $products->total() }} productos registrados</p>
+    <p class="text-sm text-gray-500">{{ $products->count() }} productos registrados</p>
     <div class="flex items-center gap-3 w-full sm:w-auto">
         <form action="{{ route('inventario.productos.index') }}" method="GET" class="relative flex-1 sm:flex-initial">
             <input type="text" name="search" value="{{ $search ?? '' }}" autocomplete="off"
@@ -104,6 +104,5 @@
         </div>
     @endif
 </div>
-<div class="mt-4">{{ $products->links() }}</div>
 
 @endsection

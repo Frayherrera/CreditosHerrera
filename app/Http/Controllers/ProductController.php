@@ -17,13 +17,12 @@ class ProductController extends Controller
 
         $products = Product::with('category', 'images')
             ->withCount('stockMovements')
-            ->when($search, fn($q) => $q->where(function ($q) use ($search) {
+            ->when($search, fn ($q) => $q->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%");
+                    ->orWhere('sku', 'like', "%{$search}%");
             }))
-            ->orderBy('created_at', 'desc')
-            ->paginate(15)
-            ->withQueryString();
+            ->orderBy('name')
+            ->get();
 
         return view('dashboard.inventario.productos.index', compact('products', 'search'));
     }
@@ -31,6 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::orderBy('name')->get();
+
         return view('dashboard.inventario.productos.form', [
             'product' => new Product,
             'categories' => $categories,
@@ -78,6 +78,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load('category', 'images', 'stockMovements.user');
+
         return view('dashboard.inventario.productos.show', compact('product'));
     }
 
@@ -85,6 +86,7 @@ class ProductController extends Controller
     {
         $categories = Category::orderBy('name')->get();
         $product->load('images');
+
         return view('dashboard.inventario.productos.form', compact('product', 'categories'));
     }
 
@@ -93,9 +95,9 @@ class ProductController extends Controller
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:products,slug,' . $product->id,
+            'slug' => 'nullable|string|max:255|unique:products,slug,'.$product->id,
             'description' => 'nullable|string',
-            'sku' => 'required|string|max:100|unique:products,sku,' . $product->id,
+            'sku' => 'required|string|max:100|unique:products,sku,'.$product->id,
             'price' => 'required|numeric|min:0',
             'monthly_payment' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -121,7 +123,7 @@ class ProductController extends Controller
                 $img->delete();
             }
 
-            if (!$product->images()->where('is_primary', true)->exists()) {
+            if (! $product->images()->where('is_primary', true)->exists()) {
                 $product->images()->first()?->update(['is_primary' => true]);
             }
         }
@@ -132,7 +134,7 @@ class ProductController extends Controller
                 ProductImage::create([
                     'product_id' => $product->id,
                     'path' => $path,
-                    'is_primary' => !$product->images()->where('is_primary', true)->exists(),
+                    'is_primary' => ! $product->images()->where('is_primary', true)->exists(),
                 ]);
             }
         }
