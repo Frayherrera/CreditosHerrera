@@ -22,3 +22,6 @@ WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html
 
 COPY vhost.conf /etc/apache2/sites-available/000-default.conf
+
+# Límites de upload
+RUN echo "upload_max_filesize=24M\npost_max_size=128M\nmax_file_uploads=20" > /usr/local/etc/php/conf.d/uploads.ini

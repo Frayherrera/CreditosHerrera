@@ -85,7 +85,7 @@
             </div>
 
             <div class="mt-6">
-                <label class="block text-sm font-medium text-gray-700 mb-1.5">Imágenes <span class="text-gray-400">(opcional, máx 2MB c/u)</span></label>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Imágenes <span class="text-gray-400">(opcional, máx 20MB c/u)</span></label>
                 <div class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-amber-300 transition-colors">
                     <svg class="w-8 h-8 text-gray-300 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />

@@ -51,7 +51,7 @@ class ProductController extends Controller
             'min_stock' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive,discontinued',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:20480',
         ]);
 
         if (empty($validated['slug'])) {
@@ -104,7 +104,7 @@ class ProductController extends Controller
             'min_stock' => 'required|integer|min:0',
             'status' => 'required|in:active,inactive,discontinued',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:20480',
         ]);
 
         if (empty($validated['slug'])) {
