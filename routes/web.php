@@ -23,7 +23,13 @@ Route::get('/', function () {
         ->orderBy('created_at', 'desc')
         ->get();
 
-    return view('welcome', compact('categories', 'products'));
+    $vendedorSlug = request('vendedor');
+    $vendedores = config('vendedores');
+    $vendedor = $vendedorSlug && isset($vendedores[$vendedorSlug])
+        ? $vendedores[$vendedorSlug]
+        : $vendedores['default'];
+
+    return view('welcome', compact('categories', 'products', 'vendedor'));
 })->name('home');
 
 Route::get('/productos/{producto:slug}', function ($slug) {
@@ -33,7 +39,13 @@ Route::get('/productos/{producto:slug}', function ($slug) {
         ->where('slug', $slug)
         ->firstOrFail();
 
-    return view('productos.show', compact('producto'));
+    $vendedorSlug = request('vendedor');
+    $vendedores = config('vendedores');
+    $vendedor = $vendedorSlug && isset($vendedores[$vendedorSlug])
+        ? $vendedores[$vendedorSlug]
+        : $vendedores['default'];
+
+    return view('productos.show', compact('producto', 'vendedor'));
 })->name('productos.show');
 
 Route::get('/gestion', function () {

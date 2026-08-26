@@ -111,7 +111,7 @@
                     @endif
                 </div>
 
-                <a href="https://wa.me/573127382163?text={{ urlencode('¡Hola! Me interesa el producto ' . $producto->name . ' (' . $producto->category->name . ') — $' . number_format($producto->price, 0, ',', '.') . ' contado / $' . number_format($producto->monthly_payment, 0, ',', '.') . ' mes. ¿Me das más información?') }}"
+                <a href="https://wa.me/{{ $vendedor['whatsapp'] }}?text={{ urlencode('¡Hola! Me interesa el producto ' . $producto->name . ' (' . $producto->category->name . ') — $' . number_format($producto->price, 0, ',', '.') . ' contado / $' . number_format($producto->monthly_payment, 0, ',', '.') . ' mes. ¿Me das más información?') }}"
                    target="_blank"
                    class="mt-6 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-500 active:bg-emerald-700 transition-colors shadow-sm">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
