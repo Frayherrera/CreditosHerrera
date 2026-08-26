@@ -380,7 +380,7 @@
                                         {{ $formatter($producto->monthly_payment) }}/mes
                                     </div>
                                 </div>
-                                <a href="https://wa.me/{{ $vendedor['whatsapp'] }}?text={{ urlencode('¡Hola! Me interesa el producto ' . $producto->name . ' (' . $producto->category->name . ') — $' . number_format($producto->price, 0, ',', '.') . ' contado / $' . number_format($producto->monthly_payment, 0, ',', '.') . ' mes. ¿Me das más información?') }}"
+                                <a href="https://wa.me/{{ $vendedor['whatsapp'] }}?text={{ urlencode('¡Hola! Me interesa el producto ' . $producto->name . ' (' . $producto->category->name . ') — $' . number_format($producto->price, 0, ',', '.') . ' a crédito / $' . number_format($producto->monthly_payment, 0, ',', '.') . ' mes. ¿Me das más información?') }}"
                                    target="_blank"
                                    class="mt-3 w-full inline-flex items-center justify-center gap-2 px-3 py-2 sm:py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-500 active:bg-emerald-700 transition-colors">
                                     <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24">
