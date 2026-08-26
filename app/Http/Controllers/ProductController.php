@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Services\ImageProcessor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -61,11 +62,14 @@ class ProductController extends Controller
         $product = Product::create($validated);
 
         if ($request->hasFile('images')) {
+            $processor = app(ImageProcessor::class);
             foreach ($request->file('images') as $i => $image) {
-                $path = $image->store('productos', 's3');
+                $processed = $processor->process($image);
+                $filename = Str::uuid().'.webp';
+                Storage::disk('s3')->put('productos/'.$filename, $processed);
                 ProductImage::create([
                     'product_id' => $product->id,
-                    'path' => $path,
+                    'path' => 'productos/'.$filename,
                     'is_primary' => $i === 0,
                 ]);
             }
@@ -129,11 +133,14 @@ class ProductController extends Controller
         }
 
         if ($request->hasFile('images')) {
+            $processor = app(ImageProcessor::class);
             foreach ($request->file('images') as $image) {
-                $path = $image->store('productos', 's3');
+                $processed = $processor->process($image);
+                $filename = Str::uuid().'.webp';
+                Storage::disk('s3')->put('productos/'.$filename, $processed);
                 ProductImage::create([
                     'product_id' => $product->id,
-                    'path' => $path,
+                    'path' => 'productos/'.$filename,
                     'is_primary' => ! $product->images()->where('is_primary', true)->exists(),
                 ]);
             }

@@ -10,6 +10,7 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::orderBy('name')->paginate(15);
+
         return view('dashboard.inventario.proveedores.index', compact('suppliers'));
     }
 

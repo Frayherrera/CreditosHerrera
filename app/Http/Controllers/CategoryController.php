@@ -21,6 +21,7 @@ class CategoryController extends Controller
     public function create()
     {
         $parents = Category::whereNull('parent_id')->orderBy('name')->get();
+
         return view('dashboard.inventario.categorias.form', [
             'category' => new Category,
             'parents' => $parents,
@@ -60,7 +61,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:categories,slug,' . $category->id,
+            'slug' => 'nullable|string|max:255|unique:categories,slug,'.$category->id,
             'description' => 'nullable|string',
             'parent_id' => 'nullable|exists:categories,id',
         ]);

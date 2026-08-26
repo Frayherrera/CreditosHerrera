@@ -137,6 +137,6 @@ class FinanceSeeder extends Seeder
             }
         }
 
-        $this->command->info("Finanzas seeded: {$categories->count()} categorías y " . Transaction::count() . " transacciones creadas.");
+        $this->command->info("Finanzas seeded: {$categories->count()} categorías y ".Transaction::count().' transacciones creadas.');
     }
 }

@@ -24,6 +24,7 @@ class StockMovementController extends Controller
         $products = Product::where('status', 'active')->orderBy('name')->get();
         $distributors = Distributor::orderBy('name')->get();
         $suppliers = Supplier::orderBy('name')->get();
+
         return view('dashboard.inventario.movimientos.form', compact('products', 'distributors', 'suppliers'));
     }
 

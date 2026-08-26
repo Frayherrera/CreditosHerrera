@@ -10,6 +10,7 @@ class DistributorController extends Controller
     public function index()
     {
         $distributors = Distributor::orderBy('name')->paginate(15);
+
         return view('dashboard.inventario.distribuidores.index', compact('distributors'));
     }
 

@@ -160,12 +160,12 @@ class NewInventorySeeder extends Seeder
 
         foreach ($products as [$name, $category, $stock]) {
             $skuCounters[$category]++;
-            $sku = $prefixes[$category] . '-' . str_pad((string) $skuCounters[$category], 3, '0', STR_PAD_LEFT);
+            $sku = $prefixes[$category].'-'.str_pad((string) $skuCounters[$category], 3, '0', STR_PAD_LEFT);
 
             Product::create([
                 'category_id' => $categoryIds[$category],
                 'name' => $name,
-                'slug' => Str::slug($name . '-' . uniqid()),
+                'slug' => Str::slug($name.'-'.uniqid()),
                 'description' => $name,
                 'sku' => $sku,
                 'price' => 1,
@@ -176,6 +176,6 @@ class NewInventorySeeder extends Seeder
             ]);
         }
 
-        $this->command->info('Inventario creado exitosamente: ' . count($products) . ' productos.');
+        $this->command->info('Inventario creado exitosamente: '.count($products).' productos.');
     }
 }

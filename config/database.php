@@ -65,9 +65,9 @@ return [
         ],
 
         'dump' => [
-    'useSingleTransaction' => true,
-    'add_extra_option' => '--ssl=0',
-],
+            'useSingleTransaction' => true,
+            'add_extra_option' => '--ssl=0',
+        ],
 
         'mariadb' => [
             'driver' => 'mariadb',
