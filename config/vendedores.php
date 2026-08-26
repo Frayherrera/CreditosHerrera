@@ -26,5 +26,9 @@ return [
         'name' => 'Lucho',
         'whatsapp' => '573147332218',
     ],
+    'marcela' => [
+        'name' => 'Marcela',
+        'whatsapp' => '573175537853',
+    ],
 
 ];
