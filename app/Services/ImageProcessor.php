@@ -21,10 +21,6 @@ class ImageProcessor
     {
         $img = $this->manager->read($file);
 
-        $img->resizeDown(800, null, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-
         return $img->toWebp(80)->toString();
     }
 }
