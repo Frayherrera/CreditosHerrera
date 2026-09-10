@@ -33,6 +33,7 @@
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider">Proveedor</th>
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider hidden lg:table-cell">Notas</th>
                     <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider">Fecha</th>
+                    <th class="px-6 py-3 font-medium text-gray-500 text-xs uppercase tracking-wider text-right">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +60,29 @@
                         <td class="px-6 py-4 text-gray-500">{{ $movement->supplier->name ?? '—' }}</td>
                         <td class="px-6 py-4 text-gray-400 hidden lg:table-cell max-w-[160px] truncate">{{ $movement->notes ?? '—' }}</td>
                         <td class="px-6 py-4 text-gray-900 text-xs whitespace-nowrap">{{ $movement->date?->format('d/m/Y') }}</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-end gap-2">
+                                <a href="{{ route('inventario.movimientos.edit', $movement) }}"
+                                    class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487zM19.5 8.25l.5-2.5-2.5.5" />
+                                    </svg>
+                                    Editar
+                                </a>
+                                <form action="{{ route('inventario.movimientos.destroy', $movement) }}" method="POST"
+                                    onsubmit="return confirm('¿Seguro que deseas eliminar este movimiento? El stock del producto se revertirá.');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                        </svg>
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

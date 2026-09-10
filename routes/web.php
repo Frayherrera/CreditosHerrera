@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('productos', ProductController::class)->parameters(['productos' => 'product']);
         Route::resource('movimientos', StockMovementController::class)
             ->parameters(['movimientos' => 'stockMovement'])
-            ->only(['index', 'create', 'store']);
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         Route::resource('distribuidores', DistributorController::class)
             ->parameters(['distribuidores' => 'distributor']);
         Route::resource('proveedores', SupplierController::class)

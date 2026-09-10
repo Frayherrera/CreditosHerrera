@@ -1,41 +1,53 @@
 @extends('layouts.admin')
 
-@section('title', 'Nuevo movimiento de stock')
-@section('subtitle', 'Registra entrada, salida o ajuste de inventario')
+@php
+$isEdit = isset($stockMovement);
+$type = old('type', $stockMovement->type ?? 'entry');
+$formAction = $isEdit
+    ? route('inventario.movimientos.update', $stockMovement)
+    : route('inventario.movimientos.store');
+$selectedProduct = $isEdit ? $stockMovement->product : null;
+@endphp
+
+@section('title', $isEdit ? 'Editar movimiento de stock' : 'Nuevo movimiento de stock')
+@section('subtitle', $isEdit ? 'Modifica entrada, salida o ajuste de inventario' : 'Registra entrada, salida o ajuste de inventario')
 
 @section('content')
 
 <div class="max-w-2xl">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-        <form action="{{ route('inventario.movimientos.store') }}" method="POST">
+        <form action="{{ $formAction }}" method="POST">
             @csrf
+            @if($isEdit)
+                @method('PUT')
+            @endif
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de movimiento</label>
                 <div class="flex gap-4">
                     <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-emerald-400 has-[:checked]:bg-emerald-50/50 transition-all cursor-pointer">
-                        <input type="radio" name="type" value="entry" checked @checked(old('type')==='entry' )
+                        <input type="radio" name="type" value="entry" @checked($type==='entry')
                             class="text-emerald-500 focus:ring-emerald-400"
                             onchange="toggleDistributorField()">
                         <span class="text-sm text-gray-700">Entrada</span>
                     </label>
                     <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-red-400 has-[:checked]:bg-red-50/50 transition-all cursor-pointer">
-                        <input type="radio" name="type" value="exit" @checked(old('type')==='exit' )
+                        <input type="radio" name="type" value="exit" @checked($type==='exit')
                             class="text-red-500 focus:ring-red-400"
                             onchange="toggleDistributorField()">
                         <span class="text-sm text-gray-700">Salida</span>
                     </label>
-                    <!-- <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/50 transition-all cursor-pointer">
-                        <input type="radio" name="type" value="adjustment" @checked(old('type')==='adjustment' )
+                    <label class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/50 transition-all cursor-pointer">
+                        <input type="radio" name="type" value="adjustment" @checked($type==='adjustment')
                             class="text-amber-500 focus:ring-amber-400"
                             onchange="toggleDistributorField()">
                         <span class="text-sm text-gray-700">Ajuste</span>
-                    </label> -->
+                    </label>
                 </div>
                 @error('type') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
             </div>
             <div class="mb-5">
                 <label for="date" class="block text-sm font-medium text-gray-700 mb-1.5">Fecha del movimiento</label>
-                <input type="date" name="date" id="date" value="{{ old('date', date('Y-m-d')) }}" required
+                <input type="date" name="date" id="date" value="{{ old('date', $stockMovement?->date?->format('Y-m-d') ?? date('Y-m-d')) }}" required
                     class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
                 @error('date') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
             </div>
@@ -45,8 +57,8 @@
                 <input type="text" id="product_search" autocomplete="off" required
                     placeholder="Escribe para buscar producto…"
                     class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all"
-                    value="{{ old('product_id') ? $products->firstWhere('id', old('product_id'))?->name : '' }}">
-                <input type="hidden" name="product_id" id="product_id" value="{{ old('product_id') }}">
+                    value="{{ old('product_id') ? $products->firstWhere('id', old('product_id'))?->name : ($selectedProduct?->name ?? '') }}">
+                <input type="hidden" name="product_id" id="product_id" value="{{ old('product_id', $stockMovement?->product_id) }}">
                 <div id="product-results"
                     class="hidden mt-1 absolute z-50 left-0 right-0 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden divide-y divide-gray-100">
                 </div>
@@ -171,19 +183,19 @@
 
             <div class="mb-5">
                 <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1.5">Cantidad</label>
-                <input type="number" min="1" name="quantity" id="quantity" value="{{ old('quantity') }}" required
+                <input type="number" min="1" name="quantity" id="quantity" value="{{ old('quantity', $stockMovement?->quantity) }}" required
                     class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
                 <p class="text-xs text-gray-400 mt-1">Para ajustes, ingresa el stock final deseado.</p>
                 @error('quantity') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
             </div>
 
-            <div id="supplier-field" class="mb-5 {{ old('type') === 'entry' ? '' : 'hidden' }}">
+            <div id="supplier-field" class="mb-5 {{ $type === 'entry' ? '' : 'hidden' }}">
                 <label for="supplier_id" class="block text-sm font-medium text-gray-700 mb-1.5">Proveedor</label>
                 <select name="supplier_id" id="supplier_id"
                     class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
                     <option value="">Seleccionar proveedor...</option>
                     @foreach($suppliers as $s)
-                    <option value="{{ $s->id }}" @selected(old('supplier_id')==$s->id)>
+                    <option value="{{ $s->id }}" @selected(old('supplier_id', $stockMovement?->supplier_id)==$s->id)>
                         {{ $s->name }}
                     </option>
                     @endforeach
@@ -191,13 +203,13 @@
                 @error('supplier_id') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
             </div>
 
-            <div id="distributor-field" class="mb-5 {{ old('type') === 'exit' ? '' : 'hidden' }}">
+            <div id="distributor-field" class="mb-5 {{ $type === 'exit' ? '' : 'hidden' }}">
                 <label for="distributor_id" class="block text-sm font-medium text-gray-700 mb-1.5">Distribuidor</label>
                 <select name="distributor_id" id="distributor_id"
                     class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">
                     <option value="">Seleccionar distribuidor...</option>
                     @foreach($distributors as $d)
-                    <option value="{{ $d->id }}" @selected(old('distributor_id')==$d->id)>
+                    <option value="{{ $d->id }}" @selected(old('distributor_id', $stockMovement?->distributor_id)==$d->id)>
                         {{ $d->name }}
                     </option>
                     @endforeach
@@ -208,14 +220,14 @@
             <div class="mb-6">
                 <label for="notes" class="block text-sm font-medium text-gray-700 mb-1.5">Notas <span class="text-gray-400">(opcional)</span></label>
                 <textarea name="notes" id="notes" rows="2"
-                    class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">{{ old('notes') }}</textarea>
+                    class="w-full rounded-xl border-gray-200 bg-gray-50 px-4 py-2.5 text-sm focus:border-amber-400 focus:ring-amber-400/20 focus:ring-4 focus:bg-white transition-all">{{ old('notes', $stockMovement?->notes) }}</textarea>
                 @error('notes') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
             </div>
 
             <div class="flex items-center justify-end gap-3 pt-2">
                 <a href="{{ route('inventario.movimientos.index') }}" class="px-5 py-2.5 text-sm text-gray-600 hover:text-gray-800 transition-colors">Cancelar</a>
                 <button type="submit" class="px-6 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-800 transition-all shadow-sm">
-                    Registrar movimiento
+                    {{ $isEdit ? 'Guardar cambios' : 'Registrar movimiento' }}
                 </button>
             </div>
         </form>

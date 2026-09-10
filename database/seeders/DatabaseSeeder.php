@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             NewInventorySeeder::class,
             FinanceSeeder::class,
+            UserSeeder::class
         ]);
     }
 }
