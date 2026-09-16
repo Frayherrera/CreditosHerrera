@@ -13,7 +13,7 @@ class StockMovementController extends Controller
     public function index()
     {
         $movements = StockMovement::with('product', 'user', 'distributor', 'supplier')
-            ->latest()
+            ->orderBy('date', 'desc')
             ->paginate(20);
 
         return view('dashboard.inventario.movimientos.index', compact('movements'));

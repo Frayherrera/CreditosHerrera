@@ -16,7 +16,7 @@ class InventoryDashboardController extends Controller
         $lowStockProducts = Product::lowStock()->count();
         $totalCategories = Category::count();
         $recentMovements = StockMovement::with('product', 'user')
-            ->latest()
+            ->orderBy('date', 'desc')
             ->take(10)
             ->get();
         $lowStockItems = Product::with('category')
