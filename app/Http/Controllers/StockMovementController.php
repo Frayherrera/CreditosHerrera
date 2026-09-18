@@ -14,7 +14,7 @@ class StockMovementController extends Controller
     {
         $movements = StockMovement::with('product', 'user', 'distributor', 'supplier')
             ->orderBy('date', 'desc')
-            ->paginate(20);
+            ->paginate(40);
 
         return view('dashboard.inventario.movimientos.index', compact('movements'));
     }
