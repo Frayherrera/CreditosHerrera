@@ -74,6 +74,7 @@
             object-fit: contain;
             padding: 1rem;
             background: #f8fafc;
+            border-radius: inherit;
         }
 
         @keyframes shimmer {
@@ -318,7 +319,7 @@
                              data-stock="{{ $producto->stock }}"
                              data-name="{{ strtolower($producto->name) }}" data-card>
                             <a href="{{ route('productos.show', $producto) }}?vendedor={{ request('vendedor', '') }}"
-                               class="block relative overflow-hidden"
+                               class="block relative p-2 sm:p-3"
                                x-data="{
                                    i: 0,
                                    urls: @js($producto->images->map(fn($img) => Storage::disk('s3')->url($img->path))->values()),
@@ -343,18 +344,22 @@
                                         ?? $producto->images->first()?->path;
                                 @endphp
                                 @if($imgUrl)
-                                <img x-bind:src="urls[i] || '{{ Storage::disk('s3')->url($imgUrl) }}'"
-                                     src="{{ Storage::disk('s3')->url($imgUrl) }}"
-                                     alt="{{ $producto->name }}"
-                                     class="w-full product-img group-hover:scale-105 transition-transform duration-500"
-                                     loading="lazy">
+                                    <div class="overflow-hidden rounded-xl">
+                                        <img x-bind:src="urls[i] || '{{ Storage::disk('s3')->url($imgUrl) }}'"
+                                             src="{{ Storage::disk('s3')->url($imgUrl) }}"
+                                             alt="{{ $producto->name }}"
+                                             class="w-full product-img group-hover:scale-105 transition-transform duration-500"
+                                             loading="lazy">
+                                    </div>
                                 @else
-                                    <div class="w-full product-img bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
-                                        Sin imagen
+                                    <div class="overflow-hidden rounded-xl">
+                                        <div class="w-full product-img bg-slate-100 flex items-center justify-center text-slate-400 text-sm">
+                                            Sin imagen
+                                        </div>
                                     </div>
                                 @endif
                                 @if($producto->images->count() > 1)
-                                    <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                                    <div class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
                                         <template x-for="(url, idx) in urls" :key="idx">
                                             <button @click="i = idx"
                                                     :class="i === idx ? 'bg-white scale-110' : 'bg-white/40'"
@@ -362,7 +367,7 @@
                                         </template>
                                     </div>
                                 @endif
-                                <button class="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
+                                <button class="absolute top-3 sm:top-4 right-3 sm:right-4 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white">
                                     <svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                                     </svg>
