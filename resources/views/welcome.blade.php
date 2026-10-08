@@ -322,7 +322,7 @@
                                class="block relative p-2 sm:p-3"
                                x-data="{
                                    i: 0,
-                                   urls: @js($producto->images->map(fn($img) => Storage::disk('s3')->url($img->path))->values()),
+                                   urls: @js($producto->images->map(fn($img) => Storage::disk('web')->url($img->path))->values()),
                                    interval: null,
                                    init() {
                                          if (this.urls.length > 1) {
@@ -345,8 +345,8 @@
                                 @endphp
                                 @if($imgUrl)
                                     <div class="overflow-hidden rounded-xl">
-                                        <img x-bind:src="urls[i] || '{{ Storage::disk('s3')->url($imgUrl) }}'"
-                                             src="{{ Storage::disk('s3')->url($imgUrl) }}"
+                                        <img x-bind:src="urls[i] || '{{ Storage::disk('web')->url($imgUrl) }}'"
+                                             src="{{ Storage::disk('web')->url($imgUrl) }}"
                                              alt="{{ $producto->name }}"
                                              class="w-full product-img group-hover:scale-105 transition-transform duration-500"
                                              loading="lazy">

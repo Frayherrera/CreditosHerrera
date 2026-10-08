@@ -51,7 +51,7 @@
     <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {{-- Galería --}}
-            <div x-data="{ i: 0, imgs: @js($producto->images->map(fn($img) => Storage::disk('s3')->url($img->path))->values()) }">
+            <div x-data="{ i: 0, imgs: @js($producto->images->map(fn($img) => Storage::disk('web')->url($img->path))->values()) }">
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <template x-if="imgs.length">
                         <img :src="imgs[i]" alt="{{ $producto->name }}" class="w-full aspect-square object-contain bg-slate-50 p-4">

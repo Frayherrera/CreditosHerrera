@@ -66,7 +66,7 @@ class ProductController extends Controller
             foreach ($request->file('images') as $i => $image) {
                 $processed = $processor->process($image);
                 $filename = Str::uuid().'.webp';
-                Storage::disk('s3')->put('productos/'.$filename, $processed);
+                Storage::disk('web')->put('productos/'.$filename, $processed);
                 ProductImage::create([
                     'product_id' => $product->id,
                     'path' => 'productos/'.$filename,
@@ -123,7 +123,7 @@ class ProductController extends Controller
                 ->get();
 
             foreach ($images as $img) {
-                Storage::disk('s3')->delete($img->path);
+                Storage::disk('web')->delete($img->path);
                 $img->delete();
             }
 
@@ -137,7 +137,7 @@ class ProductController extends Controller
             foreach ($request->file('images') as $image) {
                 $processed = $processor->process($image);
                 $filename = Str::uuid().'.webp';
-                Storage::disk('s3')->put('productos/'.$filename, $processed);
+                Storage::disk('web')->put('productos/'.$filename, $processed);
                 ProductImage::create([
                     'product_id' => $product->id,
                     'path' => 'productos/'.$filename,
@@ -153,7 +153,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         foreach ($product->images as $image) {
-            Storage::disk('s3')->delete($image->path);
+            Storage::disk('web')->delete($image->path);
         }
         $product->delete();
 

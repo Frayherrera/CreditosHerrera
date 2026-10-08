@@ -106,7 +106,7 @@
                                        autocomplete="off">
                                 <label for="del_img_{{ $img->id }}"
                                        class="delete-img-label block cursor-pointer relative rounded-lg overflow-hidden ring-2 transition-all duration-200 {{ $img->is_primary ? 'ring-amber-400' : 'ring-gray-200' }}">
-                                    <img src="{{ Storage::disk('s3')->url($img->path) }}" alt=""
+                                    <img src="{{ Storage::disk('web')->url($img->path) }}" alt=""
                                          class="w-14 h-14 object-cover transition-all duration-200">
                                     <div class="absolute inset-0 bg-black/0 flex items-center justify-center transition-all duration-200">
                                         <svg class="w-6 h-6 text-white opacity-0 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
